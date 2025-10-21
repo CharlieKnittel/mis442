@@ -66,10 +66,10 @@ namespace MMABooksBusinessClasses
             }
             set
             {
-                if (value.Trim().Length > 0 && value.Trim().Length <= 200)
+                if (value.Trim().Length > 0 && value.Trim().Length <= 50)
                     address = value;
                 else
-                    throw new ArgumentOutOfRangeException("Must be at least one character and no more than 200 characters");
+                    throw new ArgumentOutOfRangeException("Must be at least one character and no more than 5 characters");
             }
         }
 
@@ -81,10 +81,10 @@ namespace MMABooksBusinessClasses
             }
             set
             {
-                if (value.Trim().Length > 0 && value.Trim().Length <= 100)
+                if (value.Trim().Length > 0 && value.Trim().Length <= 20)
                     city = value;
                 else
-                    throw new ArgumentOutOfRangeException("Must be at least one character and no more than 100 characters");
+                    throw new ArgumentOutOfRangeException("Must be at least one character and no more than 20 characters");
             }
         }
 
@@ -99,7 +99,7 @@ namespace MMABooksBusinessClasses
                 if (value.Trim().Length > 0 && value.Trim().Length <= 2)
                     state = value;
                 else
-                    throw new ArgumentOutOfRangeException("Must be at least 1 character and no more than 2 charaters");
+                    throw new ArgumentOutOfRangeException("Must be at least 1 character and no more than 2 characters");
             }
         }
 
@@ -111,10 +111,10 @@ namespace MMABooksBusinessClasses
             }
             set
             {
-                if (value.Trim().Length > 0 && value.Trim().Length <= 100)
+                if (value.Trim().Length > 0 && value.Trim().Length <= 15)
                     zipcode = value;
                 else
-                    throw new ArgumentOutOfRangeException("Must be at least one character and no more than 100 characters");
+                    throw new ArgumentOutOfRangeException("Must be at least one character and no more than 15 characters");
             }
         }
 
