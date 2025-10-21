@@ -118,5 +118,16 @@ namespace MMABooksTests
         }
 
         //The tests above also test the getters.
+
+        [Test]
+        public void TestCustomerToString()
+        {
+            Assert.IsTrue(c.ToString().Contains("1 "));
+            Assert.IsTrue(c.ToString().Contains("Doe, John"));
+            Assert.IsTrue(c.ToString().Contains("1234 Up St"));
+            Assert.IsTrue(c.ToString().Contains("Uptown"));
+            Assert.IsTrue(c.ToString().Contains("AL"));
+            Assert.IsTrue(c.ToString().Contains("12345"));
+        }
     }
 }
