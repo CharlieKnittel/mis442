@@ -97,6 +97,7 @@ namespace MMABooksDBClasses
         public static bool DeleteCustomer(Customer customer)
         {
             // get a connection to the database
+            MySqlConnection connection = MMABooksDB.GetConnection();
             string deleteStatement =
                 "DELETE FROM Customers " +
                 "WHERE CustomerID = @CustomerID " +
