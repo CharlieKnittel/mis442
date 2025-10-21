@@ -18,17 +18,105 @@ namespace MMABooksBusinessClasses
             ZipCode = zipcode;
         }
 
-        public int CustomerID { get; set; }
+        //instance variables
 
-        public string Name { get; set; }
+        private int customerID;
+        private string name;
+        private string address;
+        private string city;
+        private string state;
+        private string zipcode;
 
-        public string Address { get; set; }
+        public int CustomerID
+        {
+            get
+            {
+                return customerID;
+            }
 
-        public string City { get; set; }
+            set
+            {
+                if (value > 0)
+                    customerID = value;
+                else
+                    throw new ArgumentOutOfRangeException("Customer ID must be a positive integer");
+            }
+        }
 
-        public string State { get; set; }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                if (value.Trim().Length > 0 && value.Trim().Length <= 100)
+                    name = value;
+                else
+                    throw new ArgumentOutOfRangeException("Must be at least one character and no more than 100 characters");
+            }
+        }
 
-        public string ZipCode { get; set; }
+        public string Address
+        {
+            get
+            {
+                return address;
+            }
+            set
+            {
+                if (value.Trim().Length > 0 && value.Trim().Length <= 200)
+                    address = value;
+                else
+                    throw new ArgumentOutOfRangeException("Must be at least one character and no more than 200 characters");
+            }
+        }
+
+        public string City
+        {
+            get
+            {
+                return city;
+            }
+            set
+            {
+                if (value.Trim().Length > 0 && value.Trim().Length <= 100)
+                    city = value;
+                else
+                    throw new ArgumentOutOfRangeException("Must be at least one character and no more than 100 characters");
+            }
+        }
+
+        public string State
+        {
+            get
+            {
+                return state;
+            }
+            set
+            {
+                if (value.Trim().Length > 0 && value.Trim().Length <= 2)
+                    state = value;
+                else
+                    throw new ArgumentOutOfRangeException("Must be at least 1 character and no more than 2 charaters");
+            }
+        }
+
+        public string ZipCode
+        {
+            get
+            {
+                return zipcode;
+            }
+            set
+            {
+                if (value.Trim().Length > 0 && value.Trim().Length <= 100)
+                    zipcode = value;
+                else
+                    throw new ArgumentOutOfRangeException("Must be at least one character and no more than 100 characters");
+            }
+        }
 
         public override string ToString()
         {
