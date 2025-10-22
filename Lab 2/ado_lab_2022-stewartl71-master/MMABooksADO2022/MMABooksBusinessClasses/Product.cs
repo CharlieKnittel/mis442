@@ -30,30 +30,58 @@ namespace MMABooksBusinessClasses
             }
             set
             {
-                if (value.Trim().Length > 0 && value.Trim().Length <= 50)
+                if (value.Trim().Length > 0 && value.Trim().Length <= 10)
                     productCode = value;
+                else
+                    throw new ArgumentOutOfRangeException("Must be at least one character and no more than 10 characters");
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+            set
+            {
+                if (value.Trim().Length > 0 && value.Trim().Length <= 50)
+                    description = value;
                 else
                     throw new ArgumentOutOfRangeException("Must be at least one character and no more than 50 characters");
             }
         }
 
-        public string Description
+        public int OnHandQuantity
+        {
+            get
+            {
+                return onHandQuantity;
+            }
+            set
+            {
+                if (value > 0)
+                    onHandQuantity = value;
+                else
+                    throw new ArgumentOutOfRangeException("On Hand Quantity must be a positive integer");
+            }
+        }
+
+        public decimal UnitPrice
         { 
             get 
             { 
-                return description; 
-            } 
-            set 
-            {
-                if (value.Trim().Length > 0 && value.Trim().Length <= 50)
-                    productCode = value;
-                else
-                    throw new ArgumentOutOfRangeException("Must be at least one character and no more than 50 characters");
+                return unitPrice; 
             }
-        public int OnHandQuantity
-            { get { return onHandQuantity; }
-
-        public decimal UnitPrice
-            { get { return unitPrice; } }
+            set
+            {
+                if (value > 0 && value.ToString().Trim().Length <= 11)
+                {
+                    unitPrice = value;
+                }
+                else
+                    throw new ArgumentOutOfRangeException("On Hand Quantity must be a positive decimal with no more than 10 total digits and no more than 4 digits after the decimal.");
+            }
+        }
     }
 }
