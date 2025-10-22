@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Reflection.Emit;
 using System.Text;
+using System.Xml.Linq;
 
 namespace MMABooksBusinessClasses
 {
@@ -80,8 +83,14 @@ namespace MMABooksBusinessClasses
                     unitPrice = value;
                 }
                 else
-                    throw new ArgumentOutOfRangeException("On Hand Quantity must be a positive decimal with no more than 10 total digits and no more than 4 digits after the decimal.");
+                    throw new ArgumentOutOfRangeException
+                        ("On Hand Quantity must be a positive decimal with no more than 10 total digits and no more than 4 digits after the decimal.");
             }
+        }
+
+        public override string ToString()
+        {
+            return ProductCode + ": " + Description + " | " + OnHandQuantity.ToString() + " on hand, $" + UnitPrice.ToString("C") + " per unit";
         }
     }
 }
