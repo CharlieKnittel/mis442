@@ -42,7 +42,7 @@ namespace MMABooksTests
         }
 
         [Test]
-        public void TestProductCodeTooLong()
+        public void TestSettersProductCodeTooLong()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => c.ProductCode = "01234567890123456789");
         }
@@ -57,9 +57,45 @@ namespace MMABooksTests
         }
 
         [Test]
-        public void TestDescriptionTooLong()
+        public void TestSettersDescriptionTooLong()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => c.ProductCode = "01234567890123456789");
+            Assert.Throws<ArgumentOutOfRangeException>(() => c.Description = "012345678901234567890123456789012345678901234567890123456789");
+        }
+
+        [Test]
+        public void TestOnHandQuantitySetter()
+        {
+            c.OnHandQuantity = 2;
+            Assert.AreEqual(2, c.OnHandQuantity);
+            c.OnHandQuantity = 1;
+            Assert.AreEqual(1, c.OnHandQuantity);
+        }
+
+        [Test]
+        public void TestSettersOnHandQuantityNegative()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => c.OnHandQuantity = -1);
+        }
+
+        [Test]
+        public void TestUnitPriceSetter()
+        {
+            c.UnitPrice = 2.99m;
+            Assert.AreEqual(2.99m, c.UnitPrice);
+            c.UnitPrice = 9.49m;
+            Assert.AreEqual(9.49m, c.UnitPrice);
+        }
+
+        [Test]
+        public void TestUnitPriceNegative()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => c.UnitPrice = -1.99m);
+        }
+
+        [Test]
+        public void TestSettersUnitPriceTooLong()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => c.UnitPrice = 12345678901234567890.39m);
         }
     }
 }
