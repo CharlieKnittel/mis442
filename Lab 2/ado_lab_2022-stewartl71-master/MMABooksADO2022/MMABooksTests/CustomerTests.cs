@@ -48,7 +48,7 @@ namespace MMABooksTests
         }
 
         [Test]
-        public void TestCustomerIDNegative()
+        public void TestSettersCustomerIDNegative()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => c.CustomerID = -1);
         }
