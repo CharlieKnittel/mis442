@@ -168,5 +168,59 @@ namespace MMABooksDBClasses
                 connection.Close();
             }
         }
+
+        public static bool UpdateProduct(Product oldProduct,
+            Product newProduct)
+        {
+            // create a connection
+            MySqlConnection connection = MMABooksDB.GetConnection();
+            string updateStatement =
+                "UPDATE Products SET " +
+                "ProductCode = @NewProductCode, " +
+                "Description = @NewDescription, " +
+                "OnHandQuantity = @NewOnHandQuantity, " +
+                "UnitPrice = @NewUnitPrice, " +
+                "WHERE ProductCode = @OldProductCode " +
+                "AND Description = @OldDescription " +
+                "AND OnHandQuantity = @OldOnHandQuantity " +
+                "AND UnitPrice = @OldUnitPrice ";
+            // setup the command object
+            MySqlCommand updateCommand =
+                new MySqlCommand(updateStatement, connection);
+            updateCommand.Parameters.AddWithValue("@NewProductCode", newProduct.ProductCode);
+            updateCommand.Parameters.AddWithValue("@NewDescription", newProduct.Description);
+            updateCommand.Parameters.AddWithValue("@NewOnHandQuantity", newProduct.OnHandQuantity);
+            updateCommand.Parameters.AddWithValue("@NewUnitPrice", newProduct.UnitPrice);
+            updateCommand.Parameters.AddWithValue("@OldProductCode", oldProduct.ProductCode);
+            updateCommand.Parameters.AddWithValue("@OldDescription", oldProduct.Description);
+            updateCommand.Parameters.AddWithValue("@OldOnHandQuantity", oldProduct.OnHandQuantity);
+            updateCommand.Parameters.AddWithValue("@OldUnitPrice", oldProduct.UnitPrice);
+            try
+            {
+                // open the connection
+                connection.Open();
+                // execute the command
+                int numRowsAffected = updateCommand.ExecuteNonQuery();
+                // if the number of records returned = 1, return true otherwise return false
+                if (numRowsAffected == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                // throw the exception
+                throw ex;
+            }
+            finally
+            {
+                // close the connection
+                connection.Close();
+            }
+        }
     }
 }
