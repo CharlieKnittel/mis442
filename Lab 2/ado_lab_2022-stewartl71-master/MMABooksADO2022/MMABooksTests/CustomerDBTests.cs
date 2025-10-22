@@ -1,10 +1,10 @@
-﻿using System;
+﻿using MMABooksBusinessClasses;
+using MMABooksDBClasses;
+using MySql.Data.MySqlClient;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text;
-
-using NUnit.Framework;
-using MMABooksBusinessClasses;
-using MMABooksDBClasses;
 
 namespace MMABooksTests
 {
@@ -21,6 +21,12 @@ namespace MMABooksTests
         {
             Customer c = CustomerDB.GetCustomer(1);
             Assert.AreEqual(1, c.CustomerID);
+        }
+
+        [Test]
+        public void TestGetCustomerDBUnavailable()
+        {
+            Assert.Throws<MySqlException>(() => CustomerDB.GetCustomer());
         }
 
         [Test]
