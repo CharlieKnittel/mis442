@@ -83,5 +83,44 @@ namespace MMABooksDBClasses
             }
             return products;
         }
+
+        public static string AddProduct(Product product)
+        {
+            MySqlConnection connection = MMABooksDB.GetConnection();
+            string insertStatement =
+                "INSERT Products " +
+                "(ProductCode, Description, OnHandQuantity, UnitPrice) " +
+                "VALUES (@ProductCode, @Description, @OnHandQuantity, @UnitPrice)";
+            MySqlCommand insertCommand =
+                new MySqlCommand(insertStatement, connection);
+            insertCommand.Parameters.AddWithValue(
+                "@ProductCode", product.ProductCode);
+            insertCommand.Parameters.AddWithValue(
+                "@Description", product.Description);
+            insertCommand.Parameters.AddWithValue(
+                "@OnHandQuantity", product.OnHandQuantity);
+            insertCommand.Parameters.AddWithValue(
+                "@UnitPrice", product.UnitPrice);
+            try
+            {
+                connection.Open();
+                insertCommand.ExecuteNonQuery();
+                // MySQL specific code for getting last pk value
+                string selectStatement =
+                    "SELECT LAST_INSERT_ID()";
+                MySqlCommand selectCommand =
+                    new MySqlCommand(selectStatement, connection);
+                string productCode = selectCommand.ExecuteScalar().ToString();
+                return productCode;
+            }
+            catch (MySqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
