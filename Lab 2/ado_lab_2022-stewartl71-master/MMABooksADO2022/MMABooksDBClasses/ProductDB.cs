@@ -105,13 +105,7 @@ namespace MMABooksDBClasses
             {
                 connection.Open();
                 insertCommand.ExecuteNonQuery();
-                // MySQL specific code for getting last pk value
-                string selectStatement =
-                    "SELECT LAST_INSERT_ID()";
-                MySqlCommand selectCommand =
-                    new MySqlCommand(selectStatement, connection);
-                string productCode = selectCommand.ExecuteScalar().ToString();
-                return productCode;
+                return product.ProductCode;
             }
             catch (MySqlException ex)
             {
