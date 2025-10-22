@@ -25,7 +25,7 @@ namespace MMABooksBusinessClasses
         private string address;
         private string city;
         private string state;
-        private string zipcode;
+        private string zipCode;
 
         public int CustomerID
         {
@@ -107,12 +107,12 @@ namespace MMABooksBusinessClasses
         {
             get
             {
-                return zipcode;
+                return zipCode;
             }
             set
             {
                 if (value.Trim().Length > 0 && value.Trim().Length <= 15)
-                    zipcode = value;
+                    zipCode = value;
                 else
                     throw new ArgumentOutOfRangeException("Must be at least one character and no more than 15 characters");
             }

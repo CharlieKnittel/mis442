@@ -26,7 +26,7 @@ namespace MMABooksTests
         [Test]
         public void TestGetCustomerDBUnavailable()
         {
-            Assert.Throws<MySqlException>(() => CustomerDB.GetCustomer());
+            Assert.Throws<MySqlException>(() => CustomerDB.GetCustomer(1));
         }
 
         [Test]
