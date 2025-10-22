@@ -22,15 +22,15 @@ namespace MMABooksTests
             Product p = ProductDB.GetProduct("A4CS");
             Assert.AreEqual("A4CS", p.ProductCode);
         }
-        /*
+        
         [Test]
-        public void TestGetStates()
+        public void TestGetProducts()
         {
-            List<State> states = StateDB.GetStates();
-            Assert.AreEqual(53, states.Count);
-            Assert.AreEqual("Alabama", states[0].StateName);
+            List<Product> products = ProductDB.GetProducts();
+            Assert.AreEqual(16, products.Count);
+            Assert.AreEqual("Murach's ASP.NET 4 Web Programming with C# 2010", products[0].Description);
         }
-
+        /*
         [Test]
         public void TestGetCustomerDBUnavailable()
         {
