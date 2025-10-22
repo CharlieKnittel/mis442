@@ -173,7 +173,7 @@ namespace MMABooksDBClasses
                 "ProductCode = @NewProductCode, " +
                 "Description = @NewDescription, " +
                 "OnHandQuantity = @NewOnHandQuantity, " +
-                "UnitPrice = @NewUnitPrice, " +
+                "UnitPrice = @NewUnitPrice " +
                 "WHERE ProductCode = @OldProductCode " +
                 "AND Description = @OldDescription " +
                 "AND OnHandQuantity = @OldOnHandQuantity " +
