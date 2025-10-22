@@ -30,13 +30,13 @@ namespace MMABooksTests
             Assert.AreEqual(16, products.Count);
             Assert.AreEqual("Murach's ASP.NET 4 Web Programming with C# 2010", products[0].Description);
         }
-        /*
+        
         [Test]
-        public void TestGetCustomerDBUnavailable()
+        public void TestGetProductDBUnavailable()
         {
-            Assert.Throws<MySqlException>(() => CustomerDB.GetCustomer(1));
+            Assert.Throws<MySqlException>(() => ProductDB.GetProduct("A4CS"));
         }
-
+        /*
         [Test]
         public void TestCreateCustomer()
         {
