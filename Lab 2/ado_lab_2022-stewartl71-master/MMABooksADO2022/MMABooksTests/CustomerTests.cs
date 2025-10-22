@@ -39,6 +39,21 @@ namespace MMABooksTests
         }
 
         [Test]
+        public void TestCustomerIDSetter()
+        {
+            c.CustomerID = 2;
+            Assert.AreEqual(2, c.CustomerID);
+            c.CustomerID = 3;
+            Assert.AreEqual(3, c.CustomerID);
+        }
+
+        [Test]
+        public void TestCustomerIDNegative()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => c.CustomerID = -1);
+        }
+
+        [Test]
         public void TestNameSetter()
         {
             // call the setters

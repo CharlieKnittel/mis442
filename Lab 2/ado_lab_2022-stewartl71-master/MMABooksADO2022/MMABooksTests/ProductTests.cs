@@ -31,5 +31,35 @@ namespace MMABooksTests
             Assert.AreEqual(3, c.OnHandQuantity);
             Assert.AreEqual(10.99m, c.UnitPrice);
         }
+
+        [Test]
+        public void TestProductCodeSetter()
+        {
+            c.ProductCode = "A1C";
+            Assert.AreEqual("A1C", c.ProductCode);
+            c.ProductCode = "A1D";
+            Assert.AreEqual("A1D", c.ProductCode);
+        }
+
+        [Test]
+        public void TestProductCodeTooLong()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => c.ProductCode = "01234567890123456789");
+        }
+
+        [Test]
+        public void TestDescriptionSetter()
+        {
+            c.Description = "Biology 101";
+            Assert.AreEqual("Biology 101", c.Description);
+            c.Description = "Chemistry 201";
+            Assert.AreEqual("Chemistry 201", c.Description);
+        }
+
+        [Test]
+        public void TestDescriptionTooLong()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => c.ProductCode = "01234567890123456789");
+        }
     }
 }
