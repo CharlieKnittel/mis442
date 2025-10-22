@@ -5,6 +5,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Google.Protobuf.Collections;
 
 namespace MMABooksTests
 {
@@ -36,22 +37,39 @@ namespace MMABooksTests
         {
             Assert.Throws<MySqlException>(() => ProductDB.GetProduct("A4CS"));
         }
-        /*
+        
         [Test]
-        public void TestCreateCustomer()
+        public void TestCreateProduct()
         {
-            Customer c = new Customer();
-            c.Name = "Mickey Mouse";
-            c.Address = "101 Main Street";
-            c.City = "Orlando";
-            c.State = "FL";
-            c.ZipCode = "10101";
+            // Ensure clean slate
+            Product existing = ProductDB.GetProduct("A1B");
+            if (existing != null)
+            {
+                ProductDB.DeleteProduct(existing);
+            }
 
-            int customerID = CustomerDB.AddCustomer(c);
-            c = CustomerDB.GetCustomer(customerID);
-            Assert.AreEqual("Mickey Mouse", c.Name);
+            Product p = new Product();
+            p.ProductCode = "A1B";
+            p.Description = "Chemistry 101";
+            p.OnHandQuantity = 3;
+            p.UnitPrice = 10.99m;
+
+            string productCode = ProductDB.AddProduct(p);
+            p = ProductDB.GetProduct("A1B");
+            Assert.AreEqual("A1B", p.ProductCode, "Failed to create new product.");
+
+            // Retrieve it again so we can delete the extra instance
+            p = ProductDB.GetProduct(productCode);
+
+            // Clear out the extra product
+            bool deleted = ProductDB.DeleteProduct(p);
+
+            // Verify the product no longer exists
+            Product deletedProduct = ProductDB.GetProduct(productCode);
+            Assert.IsTrue(deleted, "Failed to delete the test product.");
+            Assert.IsNull(deletedProduct);
         }
-
+        /*
         [Test]
         public void TestDeleteCustomer()
         {
