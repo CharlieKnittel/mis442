@@ -38,8 +38,9 @@ namespace MMABooksTests
             Assert.Throws<MySqlException>(() => ProductDB.GetProduct("A4CS"));
         }
         
+        //Because properly testing the creation of new products requires deleting them after, and deleting products requires creating them first, I am using this test for both.
         [Test]
-        public void TestCreateProduct()
+        public void TestCreateAndDeleteProduct()
         {
             // Ensure clean slate
             Product existing = ProductDB.GetProduct("A1B");
@@ -69,68 +70,55 @@ namespace MMABooksTests
             Assert.IsTrue(deleted, "Failed to delete the test product.");
             Assert.IsNull(deletedProduct);
         }
-        /*
-        [Test]
-        public void TestDeleteCustomer()
-        {
-            // Create and add a customer
-            Customer c = new Customer();
-            c.Name = "Donald Duck";
-            c.Address = "202 Main Street";
-            c.City = "Orlando";
-            c.State = "FL";
-            c.ZipCode = "20202";
-
-            int customerID = CustomerDB.AddCustomer(c);
-
-            // Retrieve it again so we have a complete Customer object
-            c = CustomerDB.GetCustomer(customerID);
-
-            // Delete the customer
-            bool deleted = CustomerDB.DeleteCustomer(c);
-
-            // Verify the customer no longer exists
-            Customer deletedCustomer = CustomerDB.GetCustomer(customerID);
-            Assert.IsTrue(deleted);
-            Assert.IsNull(deletedCustomer);
-        }
 
         [Test]
-        public void TestUpdateCustomer()
+        public void TestUpdateProduct()
         {
-            // Create and add a customer
-            Customer c = new Customer();
-            c.Name = "Donald Duck";
-            c.Address = "202 Main Street";
-            c.City = "Orlando";
-            c.State = "FL";
-            c.ZipCode = "20202";
+            // Ensure clean slate
+            Product existing = ProductDB.GetProduct("A1B");
+            if (existing != null)
+            {
+                ProductDB.DeleteProduct(existing);
+            }
 
-            int customerID = CustomerDB.AddCustomer(c);
+            Product p = new Product();
+            p.ProductCode = "A1B";
+            p.Description = "Chemistry 101";
+            p.OnHandQuantity = 3;
+            p.UnitPrice = 10.99m;
 
-            // Retrieve it again so we have a complete Customer object
-            c = CustomerDB.GetCustomer(customerID);
+            string productCode = ProductDB.AddProduct(p);
+            p = ProductDB.GetProduct("A1B");
+            Assert.AreEqual("A1B", p.ProductCode, "Failed to create new product.");
 
-            // Set up data for update
-            Customer d = new Customer();
-            d.Name = "Daisy Duck";
-            d.Address = "203 Main Street";
-            d.City = "Boston";
-            d.State = "MA";
-            d.ZipCode = "30303";
+            //Set up data for update
+            Product q = new Product();
+            q.ProductCode = "A1C";
+            q.Description = "Chemistry 102";
+            q.OnHandQuantity = 2;
+            q.UnitPrice = 11.99m;
 
-            // Update the customer
-            bool updated = CustomerDB.UpdateCustomer(c, d);
+            // Update the product
+            bool updated = ProductDB.UpdateProduct(p, q);
 
-            // Verify the customer has the new data
-            Customer updatedCustomer = CustomerDB.GetCustomer(customerID);
+            // Verify the product has the new data
+            Product updatedProduct = ProductDB.GetProduct("A1C");
             Assert.IsTrue(updated);
-            Assert.AreEqual("Daisy Duck", updatedCustomer.Name);
-            Assert.AreEqual("203 Main Street", updatedCustomer.Address);
-            Assert.AreEqual("Boston", updatedCustomer.City);
-            Assert.AreEqual("MA", updatedCustomer.State);
-            Assert.AreEqual("30303", updatedCustomer.ZipCode);
+            Assert.AreEqual("A1C", updatedProduct.ProductCode);
+            Assert.AreEqual("Chemistry 102", updatedProduct.Description);
+            Assert.AreEqual(2, updatedProduct.OnHandQuantity);
+            Assert.AreEqual(11.99m, updatedProduct.UnitPrice);
+
+            // Retrieve it again so we can delete the extra instance
+            p = ProductDB.GetProduct("A1C");
+
+            // Clear out the extra product
+            bool deleted = ProductDB.DeleteProduct(p);
+
+            // Verify the product no longer exists
+            Product deletedProduct = ProductDB.GetProduct(productCode);
+            Assert.IsTrue(deleted, "Failed to delete the test product.");
+            Assert.IsNull(deletedProduct);
         }
-        */
     }
 }
