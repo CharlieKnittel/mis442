@@ -48,5 +48,40 @@ namespace MMABooksDBClasses
                 connection.Close();
             }
         }
+
+        public static List<Product> GetProducts()
+        {
+            List<Product> products = new List<Product>();
+            MySqlConnection connection = MMABooksDB.GetConnection();
+            string selectStatement = "SELECT ProductCode, Description, OnHandQuanity, UnitPrice "
+                                   + "FROM Products "
+                                   + "ORDER BY ProductCode";
+            MySqlCommand selectCommand =
+                new MySqlCommand(selectStatement, connection);
+            try
+            {
+                connection.Open();
+                MySqlDataReader reader = selectCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    Product p = new Product();
+                    p.ProductCode = reader["ProductCode"].ToString();
+                    p.Description = reader["Description"].ToString();
+                    p.OnHandQuantity = (int)reader["OnHandQuantity"];
+                    p.UnitPrice = (decimal)reader["UnitPrice"];
+                    products.Add(p);
+                }
+                reader.Close();
+            }
+            catch (MySqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return products;
+        }
     }
 }
