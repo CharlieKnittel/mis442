@@ -53,7 +53,7 @@ namespace MMABooksDBClasses
         {
             List<Product> products = new List<Product>();
             MySqlConnection connection = MMABooksDB.GetConnection();
-            string selectStatement = "SELECT ProductCode, Description, OnHandQuanity, UnitPrice "
+            string selectStatement = "SELECT ProductCode, Description, OnHandQuantity, UnitPrice "
                                    + "FROM Products "
                                    + "ORDER BY ProductCode";
             MySqlCommand selectCommand =
