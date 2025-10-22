@@ -55,11 +55,49 @@ namespace MMABooksTests
             c = CustomerDB.GetCustomer(customerID);
 
             // Delete the customer
-            CustomerDB.DeleteCustomer(c);
+            bool deleted = CustomerDB.DeleteCustomer(c);
 
             // Verify the customer no longer exists
             Customer deletedCustomer = CustomerDB.GetCustomer(customerID);
-            Assert.IsNull(deletedCustomer, "Customer should be deleted but still exists.");
+            Assert.IsTrue(deleted);
+            Assert.IsNull(deletedCustomer);
+        }
+
+        [Test]
+        public void TestUpdateCustomer()
+        {
+            // Create and add a customer
+            Customer c = new Customer();
+            c.Name = "Donald Duck";
+            c.Address = "202 Main Street";
+            c.City = "Orlando";
+            c.State = "FL";
+            c.ZipCode = "20202";
+
+            int customerID = CustomerDB.AddCustomer(c);
+
+            // Retrieve it again so we have a complete Customer object
+            c = CustomerDB.GetCustomer(customerID);
+
+            // Set up data for update
+            Customer d = new Customer();
+            d.Name = "Daisy Duck";
+            d.Address = "203 Main Street";
+            d.City = "Boston";
+            d.State = "MA";
+            d.ZipCode = "30303";
+
+            // Update the customer
+            bool updated = CustomerDB.UpdateCustomer(c, d);
+
+            // Verify the customer has the new data
+            Customer updatedCustomer = CustomerDB.GetCustomer(customerID);
+            Assert.IsTrue(updated);
+            Assert.AreEqual("Daisy Duck", updatedCustomer.Name);
+            Assert.AreEqual("203 Main Street", updatedCustomer.Address);
+            Assert.AreEqual("Boston", updatedCustomer.City);
+            Assert.AreEqual("MA", updatedCustomer.State);
+            Assert.AreEqual("30303", updatedCustomer.ZipCode);
         }
     }
 }
