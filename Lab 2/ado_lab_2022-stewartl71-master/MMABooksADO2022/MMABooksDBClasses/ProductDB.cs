@@ -122,5 +122,51 @@ namespace MMABooksDBClasses
                 connection.Close();
             }
         }
+
+        public static bool DeleteProduct(Product product)
+        {
+            // get a connection to the database
+            MySqlConnection connection = MMABooksDB.GetConnection();
+            string deleteStatement =
+                "DELETE FROM Products " +
+                "WHERE ProductCode = @ProductCode " +
+                "AND Description = @Description " +
+                "AND OnHandQuantity = @OnHandQuantity " +
+                "AND UnitPrice = @UnitPrice ";
+            // set up the command object
+            MySqlCommand deleteCommand =
+                new MySqlCommand(deleteStatement, connection);
+            deleteCommand.Parameters.AddWithValue("@ProductCode", product.ProductCode);
+            deleteCommand.Parameters.AddWithValue("@Description", product.Description);
+            deleteCommand.Parameters.AddWithValue("@OnHandQuantity", product.OnHandQuantity);
+            deleteCommand.Parameters.AddWithValue("@UnitPrice", product.UnitPrice);
+
+            try
+            {
+                // open the connection
+                connection.Open();
+                // execute the command
+                int numRowsAffected = deleteCommand.ExecuteNonQuery();
+                // if the number of records returned = 1, return true otherwise return false
+                if (numRowsAffected == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                // close the connection
+                connection.Close();
+            }
+        }
     }
 }
