@@ -99,14 +99,12 @@ namespace MMABooksTests
         }
 
         [Test]
-        public void TestCustomerToString()
+        public void TestProductToString()
         {
-            Assert.IsTrue(c.ToString().Contains("1 "));
-            Assert.IsTrue(c.ToString().Contains("Doe, John"));
-            Assert.IsTrue(c.ToString().Contains("1234 Up St"));
-            Assert.IsTrue(c.ToString().Contains("Uptown"));
-            Assert.IsTrue(c.ToString().Contains("AL"));
-            Assert.IsTrue(c.ToString().Contains("12345"));
+            Assert.IsTrue(c.ToString().Contains("A1B"));
+            Assert.IsTrue(c.ToString().Contains("Chemistry 101"));
+            Assert.IsTrue(c.ToString().Contains("3"));
+            Assert.IsTrue(c.ToString().Contains("10.99"));
         }
     }
 }
