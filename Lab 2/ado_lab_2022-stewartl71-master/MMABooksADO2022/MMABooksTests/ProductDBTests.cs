@@ -27,7 +27,7 @@ namespace MMABooksTests
         [Test]
         public void TestGetProducts()
         {
-            List<Product> products = ProductDB.GetProducts();
+            List<Product> products = ProductDB.GetList();
             Assert.AreEqual(16, products.Count);
             Assert.AreEqual("Murach's ASP.NET 4 Web Programming with C# 2010", products[0].Description);
         }
