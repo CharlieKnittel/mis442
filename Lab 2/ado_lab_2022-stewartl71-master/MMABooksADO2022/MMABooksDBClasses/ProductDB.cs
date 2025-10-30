@@ -49,7 +49,7 @@ namespace MMABooksDBClasses
             }
         }
 
-        public static List<Product> GetProducts()
+        public static List<Product> GetList()
         {
             List<Product> products = new List<Product>();
             MySqlConnection connection = MMABooksDB.GetConnection();
