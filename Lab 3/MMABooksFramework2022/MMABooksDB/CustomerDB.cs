@@ -71,51 +71,45 @@ namespace MMABooksDB
             }
         }
 
-        public bool Delete(IBaseProps props)
+        public bool Delete(IBaseProps p)
         {
-            throw new NotImplementedException();
+            CustomerProps props = (CustomerProps)p;
+            int rowsAffected = 0;
+
+            DBCommand command = new DBCommand();
+            command.CommandText = "usp_CustomerDelete";
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("custId", DBDbType.Int32);
+            command.Parameters.Add("conCurrId", DBDbType.Int32);
+            command.Parameters["custId"].Value = props.CustomerID;
+            command.Parameters["conCurrId"].Value = props.ConcurrencyID;
+
+            try
+            {
+                rowsAffected = RunNonQueryProcedure(command);
+                if (rowsAffected == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    string message = "Record cannot be deleted. It has been edited by another user.";
+                    throw new Exception(message);
+                }
+
+            }
+            catch (Exception e)
+            {
+                // log this exception
+                throw;
+            }
+            finally
+            {
+                if (mConnection.State == ConnectionState.Open)
+                    mConnection.Close();
+            }
         }
 
-        /*
-public IBaseProps Create(IBaseProps p)
-{
-   int rowsAffected = 0;
-   CustomerProps props = (CustomerProps)p;
-
-   DBCommand command = new DBCommand();
-   command.CommandText = "usp_CustomerCreate";
-   command.CommandType = CommandType.StoredProcedure;
-   command.Parameters.Add("custId", DBDbType.Int32);
-   command.Parameters.Add("name_p", DBDbType.VarChar);
-   ... there are more parameters here
-   command.Parameters[0].Direction = ParameterDirection.Output;
-   command.Parameters["name_p"].Value = props.Name;
-   ... and more values here
-
-   try
-   {
-       rowsAffected = RunNonQueryProcedure(command);
-       if (rowsAffected == 1)
-       {
-           props.CustomerID = (int)command.Parameters[0].Value;
-           props.ConcurrencyID = 1;
-           return props;
-       }
-       else
-           throw new Exception("Unable to insert record. " + props.ToString());
-   }
-   catch (Exception e)
-   {
-       // log this error
-       throw;
-   }
-   finally
-   {
-       if (mConnection.State == ConnectionState.Open)
-           mConnection.Close();
-   }
-}
-*/
         public IBaseProps Retrieve(object key)
         {
             throw new NotImplementedException();
