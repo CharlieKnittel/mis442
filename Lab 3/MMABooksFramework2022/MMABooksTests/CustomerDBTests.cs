@@ -12,14 +12,14 @@ using MySql.Data.MySqlClient;
 
 namespace MMABooksTests
 {
-    public class StateDBTests
+    public class CustomerDBTests
     {
-        StateDB db;
+        CustomerDB db;
 
         [SetUp]
         public void ResetData()
         {
-            db = new StateDB();
+            db = new CustomerDB();
             DBCommand command = new DBCommand();
             command.CommandText = "usp_testingResetData";
             command.CommandType = CommandType.StoredProcedure;
@@ -29,33 +29,40 @@ namespace MMABooksTests
         [Test]
         public void TestRetrieve()
         {
-            StateProps p = (StateProps)db.Retrieve("OR");
-            Assert.AreEqual("OR", p.Code);
-            Assert.AreEqual("Oregon", p.Name);
+            CustomerProps p = (CustomerProps)db.Retrieve(1);
+            Assert.AreEqual(1, p.CustomerID);
+            Assert.AreEqual("Molunguri, A", p.Name);
+            Assert.AreEqual("1108 Johanna Bay Drive", p.Address);
+            Assert.AreEqual("Birmingham", p.City);
+            Assert.AreEqual("AL", p.State);
+            Assert.AreEqual("35216-6909", p.ZipCode);
         }
 
         [Test]
         public void TestRetrieveAll()
         {
-            List<StateProps> list = (List<StateProps>)db.RetrieveAll();
-            Assert.AreEqual(53, list.Count);
+            List<CustomerProps> list = (List<CustomerProps>)db.RetrieveAll();
+            Assert.AreEqual(696, list.Count);
         }
 
         [Test]
         public void TestDelete()
         {
-            StateProps p = (StateProps)db.Retrieve("HI");
+            CustomerProps p = (CustomerProps)db.Retrieve(2);
             Assert.True(db.Delete(p));
-            Assert.Throws<Exception>(() => db.Retrieve("HI"));
+            Assert.Throws<Exception>(() => db.Retrieve(2));
         }
 
+        // Foreign key constraint is currently set to a delete cascade, unit testing would require implementation of invoice classes.
 
+        /*
         [Test]
         public void TestDeleteForeignKeyConstraint()
         {
-            StateProps p = (StateProps)db.Retrieve("OR");
+            CustomerProps p = (CustomerProps)db.Retrieve(694);
             Assert.Throws<MySqlException>(() => db.Delete(p));
         }
+        */
 
         [Test]
         public void TestUpdate()
