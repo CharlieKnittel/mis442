@@ -167,7 +167,6 @@ namespace MMABooksBusiness
 
         protected override void SetDefaultProperties()
         {
-            throw new NotImplementedException();
         }
 
         protected override void SetRequiredRules()
