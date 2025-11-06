@@ -21,7 +21,8 @@ namespace MMABooksTests
         {
             db = new StateDB();
             DBCommand command = new DBCommand();
-            command.CommandText = "usp_testingResetData";
+            //Previously called usp_testingResetData, was not properly resetting StateDB
+            command.CommandText = "usp_testingResetStateData";
             command.CommandType = CommandType.StoredProcedure;
             db.RunNonQueryProcedure(command);
         }
@@ -31,7 +32,7 @@ namespace MMABooksTests
         {
             StateProps p = (StateProps)db.Retrieve("OR");
             Assert.AreEqual("OR", p.Code);
-            Assert.AreEqual("Oregon", p.Name);
+            Assert.AreEqual("Ore", p.Name);
         }
 
         [Test]

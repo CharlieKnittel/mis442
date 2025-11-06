@@ -67,11 +67,19 @@ namespace MMABooksTests
         [Test]
         public void TestUpdate()
         {
-            StateProps p = (StateProps)db.Retrieve("OR");
-            p.Name = "Oregon";
+            CustomerProps p = (CustomerProps)db.Retrieve(2);
+            p.Name = "Minnie Mouse";
+            p.Address = "101 Main Street";
+            p.City = "Orlando";
+            p.State = "FL";
+            p.ZipCode = "10001";
             Assert.True(db.Update(p));
-            p = (StateProps)db.Retrieve("OR");
-            Assert.AreEqual("Oregon", p.Name);
+            p = (CustomerProps)db.Retrieve(2);
+            Assert.AreEqual("Minnie Mouse", p.Name);
+            Assert.AreEqual("101 Main Street", p.Address);
+            Assert.AreEqual("Orlando", p.City);
+            Assert.AreEqual("FL", p.State);
+            Assert.AreEqual("10001", p.ZipCode);
         }
 
         [Test]
