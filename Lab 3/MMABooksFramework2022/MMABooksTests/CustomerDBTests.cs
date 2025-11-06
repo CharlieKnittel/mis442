@@ -85,22 +85,28 @@ namespace MMABooksTests
         [Test]
         public void TestUpdateFieldTooLong()
         {
-            StateProps p = (StateProps)db.Retrieve("OR");
-            p.Name = "Oregon is the state where Crater Lake National Park is.";
+            CustomerProps p = (CustomerProps)db.Retrieve("2");
+            p.Name = "Here is a super duper terribly awfully long name that will surely throw a sql exception, it must be ridiculously stupendously extended.";
             Assert.Throws<MySqlException>(() => db.Update(p));
         }
 
         [Test]
         public void TestCreate()
         {
-            StateProps p = new StateProps();
-            p.Code = "??";
-            p.Name = "Where am I";
+            CustomerProps p = new CustomerProps();
+            p.Name = "Who is this?";
+            p.Address = "Where do they live?";
+            p.City = "Huh?";
+            p.State = "OR";
+            p.ZipCode = "?????";
             db.Create(p);
-            StateProps p2 = (StateProps)db.Retrieve(p.Code);
+            CustomerProps p2 = (CustomerProps)db.Retrieve(p.CustomerID);
             Assert.AreEqual(p.GetState(), p2.GetState());
         }
 
+        // Primary key is auto-incrementing, no primary key violation test needed
+
+        /*
         [Test]
         public void TestCreatePrimaryKeyViolation()
         {
@@ -109,5 +115,6 @@ namespace MMABooksTests
             p.Name = "Oregon";
             Assert.Throws<MySqlException>(() => db.Create(p));
         }
+        */
     }
 }
