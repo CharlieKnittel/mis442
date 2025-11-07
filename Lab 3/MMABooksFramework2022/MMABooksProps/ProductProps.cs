@@ -21,7 +21,7 @@ namespace MMABooksProps
 
         public string Description { get; set; } = "";
 
-        public decimal UnitPrice { get; set; } = 0;
+        public decimal UnitPrice { get; set; } = 0m;
 
         public int OnHandQuantity { get; set; } = 0;
 
