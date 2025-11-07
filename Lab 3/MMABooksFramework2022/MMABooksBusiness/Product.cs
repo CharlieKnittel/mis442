@@ -188,11 +188,11 @@ namespace MMABooksBusiness
 
         protected override void SetRequiredRules()
         {
-            mRules.RuleBroken("Name", true);
-            mRules.RuleBroken("Address", true);
-            mRules.RuleBroken("City", true);
-            mRules.RuleBroken("State", true);
-            mRules.RuleBroken("ZipCode", true);
+            mRules.RuleBroken("ProductID", true);
+            mRules.RuleBroken("ProductCode", true);
+            mRules.RuleBroken("Description", true);
+            mRules.RuleBroken("UnitPrice", true);
+            mRules.RuleBroken("OnHandQuantity", true);
         }
 
         protected override void SetUp()
