@@ -14,18 +14,16 @@ namespace MMABooksProps
     public class ProductProps : IBaseProps
     {
         #region Auto-implemented Properties
-        //properties for the customer
-        public int CustomerID { get; set; } = 0;
+        //properties for the product
+        public int ProductID { get; set; } = 0;
 
-        public string Name { get; set; } = "";
+        public string ProductCode { get; set; } = "";
 
-        public string Address { get; set; } = "";
+        public string Description { get; set; } = "";
 
-        public string City { get; set; } = "";
+        public decimal UnitPrice { get; set; } = 0;
 
-        public string State { get; set; } = "";
-
-        public string ZipCode { get; set; } = "";
+        public int OnHandQuantity { get; set; } = 0;
 
         /// <summary>
         /// ConcurrencyID. Don't manipulate directly.
