@@ -1,0 +1,131 @@
+using NUnit.Framework;
+
+using MMABooksProps;
+using MMABooksDB;
+
+using DBCommand = MySql.Data.MySqlClient.MySqlCommand;
+using System.Data;
+
+using System.Collections.Generic;
+using System;
+using MySql.Data.MySqlClient;
+
+namespace MMABooksTests
+{
+    public class ProductDBTests
+    {
+        ProductDB db;
+
+        [SetUp]
+        public void ResetData()
+        {
+            db = new ProductDB();
+            DBCommand command = new DBCommand();
+            command.CommandText = "usp_testingResetData";
+            command.CommandType = CommandType.StoredProcedure;
+            db.RunNonQueryProcedure(command);
+        }
+
+        [Test]
+        public void TestRetrieve()
+        {
+            ProductProps p = (ProductProps)db.Retrieve(1);
+            Assert.AreEqual(1, p.ProductID);
+            Assert.AreEqual("A4CS", p.ProductCode);
+            Assert.AreEqual("Murach's ASP.NET 4 Web Programming with C# 2010", p.Description);
+            Assert.AreEqual(56.50m, p.UnitPrice);
+            Assert.AreEqual(4637, p.OnHandQuantity);
+        }
+
+        [Test]
+        public void TestRetrieveAll()
+        {
+            List<CustomerProps> list = (List<CustomerProps>)db.RetrieveAll();
+            Assert.AreEqual(696, list.Count);
+        }
+
+        [Test]
+        public void TestDelete()
+        {
+            CustomerProps p = (CustomerProps)db.Retrieve(2);
+            Assert.True(db.Delete(p));
+            Assert.Throws<Exception>(() => db.Retrieve(2));
+        }
+
+        // Foreign key constraint is currently set to a delete cascade, unit testing would require implementation of invoice classes.
+
+        /*
+        [Test]
+        public void TestDeleteForeignKeyConstraint()
+        {
+            CustomerProps p = (CustomerProps)db.Retrieve(694);
+            Assert.Throws<MySqlException>(() => db.Delete(p));
+        }
+        */
+
+        [Test]
+        public void TestUpdate()
+        {
+            CustomerProps p = (CustomerProps)db.Retrieve(2);
+            p.Name = "Minnie Mouse";
+            p.Address = "101 Main Street";
+            p.City = "Orlando";
+            p.State = "FL";
+            p.ZipCode = "10001";
+            Assert.True(db.Update(p));
+            p = (CustomerProps)db.Retrieve(2);
+            Assert.AreEqual("Minnie Mouse", p.Name);
+            Assert.AreEqual("101 Main Street", p.Address);
+            Assert.AreEqual("Orlando", p.City);
+            Assert.AreEqual("FL", p.State);
+            Assert.AreEqual("10001", p.ZipCode);
+        }
+
+        [Test]
+        public void TestUpdateForeignKeyConstraint()
+        {
+            CustomerProps p = (CustomerProps)db.Retrieve(2);
+            p.Name = "Minnie Mouse";
+            p.Address = "101 Main Street";
+            p.City = "Orlando";
+            p.State = "ZZ";
+            p.ZipCode = "10001";
+            Assert.Throws<MySqlException>(() => db.Update(p));
+        }
+
+        [Test]
+        public void TestUpdateFieldTooLong()
+        {
+            CustomerProps p = (CustomerProps)db.Retrieve("2");
+            p.Name = "Here is a super duper terribly awfully long name that will surely throw a sql exception, it must be ridiculously stupendously extended.";
+            Assert.Throws<MySqlException>(() => db.Update(p));
+        }
+
+        [Test]
+        public void TestCreate()
+        {
+            CustomerProps p = new CustomerProps();
+            p.Name = "Who is this?";
+            p.Address = "Where do they live?";
+            p.City = "Huh?";
+            p.State = "OR";
+            p.ZipCode = "?????";
+            db.Create(p);
+            CustomerProps p2 = (CustomerProps)db.Retrieve(p.CustomerID);
+            Assert.AreEqual(p.GetState(), p2.GetState());
+        }
+
+        // Primary key is auto-incrementing, no primary key violation test needed
+
+        /*
+        [Test]
+        public void TestCreatePrimaryKeyViolation()
+        {
+            StateProps p = new StateProps();
+            p.Code = "OR";
+            p.Name = "Oregon";
+            Assert.Throws<MySqlException>(() => db.Create(p));
+        }
+        */
+    }
+}
