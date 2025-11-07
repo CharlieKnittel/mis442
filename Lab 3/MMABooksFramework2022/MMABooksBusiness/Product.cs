@@ -208,7 +208,7 @@ namespace MMABooksBusiness
         /// <summary>
         /// Default constructor - gets the connection string - assumes a new record that is not in the database.
         /// </summary>
-        public Customer() : base()
+        public Product() : base()
         {
         }
 
@@ -219,12 +219,12 @@ namespace MMABooksBusiness
         /// <param name="key">ID number of a record in the database.
         /// Sent as an arg to Load() to set values of record to properties of an 
         /// object.</param>
-        public Customer(string key)
+        public Product(string key)
             : base(key)
         {
         }
 
-        private Customer(CustomerProps props)
+        private Product(ProductProps props)
             : base(props)
         {
         }
