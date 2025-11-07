@@ -24,7 +24,7 @@ DELIMITER ;
 DELIMITER // 
 CREATE PROCEDURE usp_CustomerSelectAll ()
 BEGIN
-	Select * from customers order by name;
+	Select * from customers order by customerid;
 END //
 DELIMITER ;
 
