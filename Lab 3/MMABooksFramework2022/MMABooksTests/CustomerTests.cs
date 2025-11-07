@@ -47,92 +47,115 @@ namespace MMABooksTests
         public void TestRetrieveFromDataStoreContructor()
         {
             // retrieves from Data Store
-            State s = new State("OR");
-            Assert.AreEqual("OR", s.Abbreviation);
-            Assert.IsTrue(s.Name.Length > 0);
-            Assert.IsFalse(s.IsNew);
-            Assert.IsTrue(s.IsValid);
+            Customer c = new Customer("2");
+            Assert.AreEqual(2, c.CustomerID);
+            Assert.IsTrue(c.Name.Length > 0);
+            Assert.IsTrue(c.Address.Length > 0);
+            Assert.IsTrue(c.City.Length > 0);
+            Assert.IsTrue(c.State.Length > 0);
+            Assert.IsTrue(c.ZipCode.Length > 0);
+            Assert.IsFalse(c.IsNew);
+            Assert.IsTrue(c.IsValid);
         }
 
         [Test]
         public void TestSaveToDataStore()
         {
-            State s = new State();
-            s.Abbreviation = "??";
-            s.Name = "Where am I";
-            s.Save();
-            State s2 = new State("??");
-            Assert.AreEqual(s2.Abbreviation, s.Abbreviation);
-            Assert.AreEqual(s2.Name, s.Name);
+            Customer c = new Customer();
+            c.Name = "Who am I";
+            c.Address = "Some Address";
+            c.City = "Somewhere";
+            c.State = "OR";
+            c.ZipCode = "11111";
+            c.Save();
+            Customer c2 = new Customer(c.CustomerID.ToString());
+            Assert.AreEqual(c2.CustomerID, c.CustomerID);
+            Assert.AreEqual(c2.Name, c.Name);
+            Assert.AreEqual(c2.Address, c.Address);
+            Assert.AreEqual(c2.City, c.City);
+            Assert.AreEqual(c2.State, c.State);
+            Assert.AreEqual(c2.ZipCode, c.ZipCode);
         }
 
         [Test]
         public void TestUpdate()
         {
-            State s = new State("OR");
-            s.Name = "Edited Name";
-            s.Save();
+            Customer c = new Customer("3");
+            c.Name = "Edited Name";
+            c.Address = "Edited Address";
+            c.City = "Edited City";
+            c.State = "SC";
+            c.ZipCode = "12345";
+            c.Save();
 
-            State s2 = new State("OR");
-            Assert.AreEqual(s2.Abbreviation, s.Abbreviation);
-            Assert.AreEqual(s2.Name, s.Name);
+            Customer c2 = new Customer("3");
+            Assert.AreEqual(c2.CustomerID, c.CustomerID);
+            Assert.AreEqual(c2.Name, c.Name);
+            Assert.AreEqual(c2.Address, c.Address);
+            Assert.AreEqual(c2.City, c.City);
+            Assert.AreEqual(c2.State, c.State);
+            Assert.AreEqual(c2.ZipCode, c.ZipCode);
         }
 
         [Test]
         public void TestDelete()
         {
-            State s = new State("HI");
-            s.Delete();
-            s.Save();
-            Assert.Throws<Exception>(() => new State("HI"));
+            Customer c = new Customer("4");
+            c.Delete();
+            c.Save();
+            Assert.Throws<Exception>(() => new Customer("4"));
         }
 
         [Test]
         public void TestGetList()
         {
-            State s = new State();
-            List<State> states = (List<State>)s.GetList();
-            Assert.AreEqual(53, states.Count);
-            Assert.AreEqual("Alabama", states[0].Name);
-            Assert.AreEqual("AL", states[0].Abbreviation);
+            Customer c = new Customer();
+            List<Customer> customers = (List<Customer>)c.GetList();
+            Assert.AreEqual(696, customers.Count);
+            Assert.AreEqual(1, customers[0].CustomerID);
+            Assert.AreEqual("Molunguri, A", customers[0].Name);
+            Assert.AreEqual("1108 Johanna Bay Drive", customers[0].Address);
+            Assert.AreEqual("Birmingham", customers[0].City);
+            Assert.AreEqual("AL", customers[0].State);
+            Assert.AreEqual("35216-6909", customers[0].ZipCode);
         }
 
         [Test]
         public void TestNoRequiredPropertiesNotSet()
         {
             // not in Data Store - abbreviation and name must be provided
-            State s = new State();
-            Assert.Throws<Exception>(() => s.Save());
+            Customer c = new Customer();
+            Assert.Throws<Exception>(() => c.Save());
         }
 
         [Test]
         public void TestSomeRequiredPropertiesNotSet()
         {
             // not in Data Store - abbreviation and name must be provided
-            State s = new State();
-            Assert.Throws<Exception>(() => s.Save());
-            s.Abbreviation = "??";
-            Assert.Throws<Exception>(() => s.Save());
+            Customer c = new Customer();
+            Assert.Throws<Exception>(() => c.Save());
+            c.Name = "??";
+            Assert.Throws<Exception>(() => c.Save());
         }
 
         [Test]
         public void TestInvalidPropertySet()
         {
-            State s = new State();
-            Assert.Throws<ArgumentOutOfRangeException>(() => s.Abbreviation = "???");
+            Customer c = new Customer();
+            Assert.Throws<ArgumentOutOfRangeException>(() => c.State = "CAAAAAAAA");
         }
 
         [Test]
         public void TestConcurrencyIssue()
         {
-            State s1 = new State("OR");
-            State s2 = new State("OR");
+            Customer c1 = new Customer("4");
+            Customer c2 = new Customer("4");
 
-            s1.Name = "Updated first";
-            s1.Save();
+            c1.Name = "Updated first";
+            c1.Save();
 
-            s2.Name = "Updated second";
-            Assert.Throws<Exception>(() => s2.Save());
+            c2.Name = "Updated second";
+            Assert.Throws<Exception>(() => c2.Save());
         }
     }
 }

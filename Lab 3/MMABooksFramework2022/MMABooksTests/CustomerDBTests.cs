@@ -83,6 +83,18 @@ namespace MMABooksTests
         }
 
         [Test]
+        public void TestUpdateForeignKeyConstraint()
+        {
+            CustomerProps p = (CustomerProps)db.Retrieve(2);
+            p.Name = "Minnie Mouse";
+            p.Address = "101 Main Street";
+            p.City = "Orlando";
+            p.State = "ZZ";
+            p.ZipCode = "10001";
+            Assert.Throws<MySqlException>(() => db.Update(p));
+        }
+
+        [Test]
         public void TestUpdateFieldTooLong()
         {
             CustomerProps p = (CustomerProps)db.Retrieve("2");
