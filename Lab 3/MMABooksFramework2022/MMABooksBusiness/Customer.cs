@@ -17,6 +17,23 @@ namespace MMABooksBusiness
             {
                 return ((CustomerProps)mProps).CustomerID;
             }
+            set
+            {
+                if (value != ((CustomerProps)mProps).CustomerID)
+                {
+                    // Guard against negative or fractional input
+                    if (value > 0 && value % 1 == 0)
+                    {
+                        mRules.RuleBroken("CustomerID", false);
+                        ((CustomerProps)mProps).CustomerID = value;
+                        mIsDirty = true;
+                    }
+                    else
+                    {
+                        throw new ArgumentOutOfRangeException("CustomerID must be a positive integer.");
+                    }
+                }
+            }
         }
         
         public String Name
