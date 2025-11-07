@@ -188,6 +188,7 @@ namespace MMABooksBusiness
 
         protected override void SetRequiredRules()
         {
+            mRules.RuleBroken("CustomerID", true);
             mRules.RuleBroken("Name", true);
             mRules.RuleBroken("Address", true);
             mRules.RuleBroken("City", true);
