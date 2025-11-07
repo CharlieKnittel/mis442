@@ -32,13 +32,12 @@ namespace MMABooksProps
         #endregion
         public object Clone()
         {
-            CustomerProps p = new CustomerProps();
-            p.CustomerID = this.CustomerID;
-            p.Name = this.Name;
-            p.Address = this.Address;
-            p.City = this.City;
-            p.State = this.State;
-            p.ZipCode = this.ZipCode;
+            ProductProps p = new ProductProps();
+            p.ProductID = this.ProductID;
+            p.ProductCode = this.ProductCode;
+            p.Description = this.Description;
+            p.UnitPrice = this.UnitPrice;
+            p.OnHandQuantity = this.OnHandQuantity;
             p.ConcurrencyID = this.ConcurrencyID;
             return p;
         }
@@ -52,24 +51,22 @@ namespace MMABooksProps
 
         public void SetState(string jsonString)
         {
-            CustomerProps p = JsonSerializer.Deserialize<CustomerProps>(jsonString);
-            this.CustomerID = p.CustomerID;
-            this.Name = p.Name;
-            this.Address = p.Address;
-            this.City = p.City;
-            this.State = p.State;
-            this.ZipCode = p.ZipCode;
+            ProductProps p = JsonSerializer.Deserialize<ProductProps>(jsonString);
+            this.ProductID = p.ProductID;
+            this.ProductCode = p.ProductCode;
+            this.Description = p.Description;
+            this.UnitPrice = p.UnitPrice;
+            this.OnHandQuantity = p.OnHandQuantity;
             this.ConcurrencyID = p.ConcurrencyID;
         }
 
         public void SetState(DBDataReader dr)
         {
-            this.CustomerID = ((Int32)dr["CustomerID"]);
-            this.Name = (string)dr["Name"];
-            this.Address = ((string)dr["Address"]);
-            this.City = ((string)dr["City"]);
-            this.State = ((string)dr["State"]);
-            this.ZipCode = ((string)dr["ZipCode"]);
+            this.ProductID = ((Int32)dr["ProductID"]);
+            this.ProductCode = (string)dr["ProductCode"];
+            this.Description = (string)dr["Description"];
+            this.UnitPrice = (decimal)dr["UnitPrice"];
+            this.OnHandQuantity = ((Int32)dr["OnHandQuantity"]);
             this.ConcurrencyID = (Int32)dr["ConcurrencyID"];
         }
     }
