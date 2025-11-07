@@ -14,13 +14,13 @@ using MySql.Data.MySqlClient;
 namespace MMABooksTests
 {
     [TestFixture]
-    public class CustomerTests
+    public class ProductTests
     {
 
         [SetUp]
         public void TestResetDatabase()
         {
-            CustomerDB db = new CustomerDB();
+            ProductDB db = new ProductDB();
             DBCommand command = new DBCommand();
             command.CommandText = "usp_testingResetData";
             command.CommandType = CommandType.StoredProcedure;
@@ -28,18 +28,17 @@ namespace MMABooksTests
         }
 
         [Test]
-        public void TestNewCustomerConstructor()
+        public void TestNewProductConstructor()
         {
             // not in Data Store - no code
-            Customer c = new Customer();
-            Assert.AreEqual(0, c.CustomerID);
-            Assert.AreEqual(string.Empty, c.Name);
-            Assert.AreEqual(string.Empty, c.Address);
-            Assert.AreEqual(string.Empty, c.City);
-            Assert.AreEqual(string.Empty, c.State);
-            Assert.AreEqual(string.Empty, c.ZipCode);
-            Assert.IsTrue(c.IsNew);
-            Assert.IsFalse(c.IsValid);
+            Product p = new Product();
+            Assert.AreEqual(0, p.ProductID);
+            Assert.AreEqual(string.Empty, p.ProductCode);
+            Assert.AreEqual(string.Empty, p.Description);
+            Assert.AreEqual(0m, p.UnitPrice);
+            Assert.AreEqual(0, p.OnHandQuantity);
+            Assert.IsTrue(p.IsNew);
+            Assert.IsFalse(p.IsValid);
         }
 
 

@@ -36,131 +36,105 @@ namespace MMABooksBusiness
             }
         }
         
-        public String Name
+        public String ProductCode
         {
             get
             {
-                return ((CustomerProps)mProps).Name;
+                return ((ProductProps)mProps).ProductCode;
             }
 
             set
             {
-                if (!(value == ((CustomerProps)mProps).Name))
+                if (!(value == ((ProductProps)mProps).ProductCode))
                 {
-                    if (value.Trim().Length >= 1 && value.Trim().Length <= 100)
+                    if (value.Trim().Length >= 1 && value.Trim().Length <= 10)
                     {
-                        mRules.RuleBroken("Name", false);
-                        ((CustomerProps)mProps).Name = value;
+                        mRules.RuleBroken("ProductCode", false);
+                        ((ProductProps)mProps).ProductCode = value;
                         mIsDirty = true;
                     }
 
                     else
                     {
-                        throw new ArgumentOutOfRangeException("Name must be no more than 100 characters long.");
+                        throw new ArgumentOutOfRangeException("Name must be no more than 10 characters long.");
                     }
                 }
             }
         }
 
-        public String Address
+        public String Description
         {
             get
             {
-                return ((CustomerProps)mProps).Address;
+                return ((ProductProps)mProps).Description;
             }
 
             set
             {
-                if (!(value == ((CustomerProps)mProps).Address))
+                if (!(value == ((ProductProps)mProps).Description))
                 {
                     if (value.Trim().Length >= 1 && value.Trim().Length <= 50)
                     {
-                        mRules.RuleBroken("Address", false);
-                        ((CustomerProps)mProps).Address = value;
+                        mRules.RuleBroken("Description", false);
+                        ((ProductProps)mProps).Description = value;
                         mIsDirty = true;
                     }
 
                     else
                     {
-                        throw new ArgumentOutOfRangeException("Address must be no more than 50 characters long.");
+                        throw new ArgumentOutOfRangeException("Description must be no more than 50 characters long.");
                     }
                 }
             }
         }
 
-        public String City
+        public Decimal UnitPrice
         {
             get
             {
-                return ((CustomerProps)mProps).City;
+                return ((ProductProps)mProps).UnitPrice;
             }
 
             set
             {
-                if (!(value == ((CustomerProps)mProps).City))
+                if (!(value == ((ProductProps)mProps).UnitPrice))
                 {
-                    if (value.Trim().Length >= 1 && value.Trim().Length <= 20)
+                    if (value > 0)
                     {
-                        mRules.RuleBroken("City", false);
-                        ((CustomerProps)mProps).City = value;
+                        mRules.RuleBroken("UnitPrice", false);
+                        ((ProductProps)mProps).UnitPrice = value;
                         mIsDirty = true;
                     }
 
                     else
                     {
-                        throw new ArgumentOutOfRangeException("City must be no more than 20 characters long.");
+                        throw new ArgumentOutOfRangeException("Unit Price must be a positive decimal.");
                     }
                 }
             }
         }
 
-        public String State
+        public int OnHandQuantity
         {
             get
             {
-                return ((CustomerProps)mProps).State;
+                return ((ProductProps)mProps).OnHandQuantity;
             }
 
             set
             {
-                if (!(value == ((CustomerProps)mProps).State))
+                if (value != ((ProductProps)mProps).OnHandQuantity)
                 {
-                    if (value.Trim().Length >= 1 && value.Trim().Length <= 2)
+                    // Guard against negative or fractional input
+                    if (value > 0 && value % 1 == 0)
                     {
-                        mRules.RuleBroken("State", false);
-                        ((CustomerProps)mProps).State = value;
+                        mRules.RuleBroken("OnHandQuantity", false);
+                        ((ProductProps)mProps).OnHandQuantity = value;
                         mIsDirty = true;
                     }
-
                     else
                     {
-                        throw new ArgumentOutOfRangeException("State must be no more than 2 characters long.");
-                    }
-                }
-            }
-        }
-
-        public String ZipCode
-        {
-            get
-            {
-                return ((CustomerProps)mProps).ZipCode;
-            }
-
-            set
-            {
-                if (!(value == ((CustomerProps)mProps).ZipCode))
-                {
-                    if (value.Trim().Length >= 1 && value.Trim().Length <= 15)
-                    {
-                        mRules.RuleBroken("ZipCode", false);
-                        ((CustomerProps)mProps).ZipCode = value;
-                        mIsDirty = true;
-                    }
-
-                    else
-                    {
-                        throw new ArgumentOutOfRangeException("ZipCode must be no more than 15 characters long.");
+                        throw new ArgumentOutOfRangeException("On Hand Quantity must be a positive integer.");
                     }
                 }
             }
@@ -168,18 +142,18 @@ namespace MMABooksBusiness
 
         public override object GetList()
         {
-            List<Customer> customers = new List<Customer>();
-            List<CustomerProps> props = new List<CustomerProps>();
+            List<Product> products = new List<Product>();
+            List<ProductProps> props = new List<ProductProps>();
 
 
-            props = (List<CustomerProps>)mdbReadable.RetrieveAll();
-            foreach (CustomerProps prop in props)
+            props = (List<ProductProps>)mdbReadable.RetrieveAll();
+            foreach (ProductProps prop in props)
             {
-                Customer c = new Customer(prop);
-                customers.Add(c);
+                Product p = new Product(prop);
+                products.Add(p);
             }
 
-            return customers;
+            return products;
         }
 
         protected override void SetDefaultProperties()
