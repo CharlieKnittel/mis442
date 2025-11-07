@@ -46,115 +46,109 @@ namespace MMABooksTests
         public void TestRetrieveFromDataStoreContructor()
         {
             // retrieves from Data Store
-            Customer c = new Customer("2");
-            Assert.AreEqual(2, c.CustomerID);
-            Assert.IsTrue(c.Name.Length > 0);
-            Assert.IsTrue(c.Address.Length > 0);
-            Assert.IsTrue(c.City.Length > 0);
-            Assert.IsTrue(c.State.Length > 0);
-            Assert.IsTrue(c.ZipCode.Length > 0);
-            Assert.IsFalse(c.IsNew);
-            Assert.IsTrue(c.IsValid);
+            Product p = new Product("2");
+            Assert.AreEqual(2, p.ProductID);
+            Assert.IsTrue(p.ProductCode.Length > 0);
+            Assert.IsTrue(p.Description.Length > 0);
+            Assert.IsTrue(p.UnitPrice > 0);
+            Assert.IsTrue(p.OnHandQuantity > 0);
+            Assert.IsFalse(p.IsNew);
+            Assert.IsTrue(p.IsValid);
         }
 
         [Test]
         public void TestSaveToDataStore()
         {
-            Customer c = new Customer();
-            c.Name = "Who am I";
-            c.Address = "Some Address";
-            c.City = "Somewhere";
-            c.State = "OR";
-            c.ZipCode = "11111";
-            c.Save();
-            Customer c2 = new Customer(c.CustomerID.ToString());
-            Assert.AreEqual(c2.CustomerID, c.CustomerID);
-            Assert.AreEqual(c2.Name, c.Name);
-            Assert.AreEqual(c2.Address, c.Address);
-            Assert.AreEqual(c2.City, c.City);
-            Assert.AreEqual(c2.State, c.State);
-            Assert.AreEqual(c2.ZipCode, c.ZipCode);
+            Product p = new Product();
+            p.ProductCode = "SMTH";
+            p.Description = "Idk what it is";
+            p.UnitPrice = 2.00m;
+            p.OnHandQuantity = 4000;
+            p.Save();
+            Product p2 = new Product(p.ProductID.ToString());
+            Assert.AreEqual(p2.ProductID, p.ProductID);
+            Assert.AreEqual(p2.ProductCode, p.ProductCode);
+            Assert.AreEqual(p2.Description, p.Description);
+            Assert.AreEqual(p2.UnitPrice, p.UnitPrice);
+            Assert.AreEqual(p2.OnHandQuantity, p.OnHandQuantity);
         }
 
         [Test]
         public void TestUpdate()
         {
-            Customer c = new Customer("3");
-            c.Name = "Edited Name";
-            c.Address = "Edited Address";
-            c.City = "Edited City";
-            c.State = "SC";
-            c.ZipCode = "12345";
-            c.Save();
+            Product p = new Product("3");
+            p.ProductCode = "EditCode";
+            p.Description = "Edited Description";
+            p.UnitPrice = 10m;
+            p.OnHandQuantity = 3000;
+            p.Save();
 
-            Customer c2 = new Customer("3");
-            Assert.AreEqual(c2.CustomerID, c.CustomerID);
-            Assert.AreEqual(c2.Name, c.Name);
-            Assert.AreEqual(c2.Address, c.Address);
-            Assert.AreEqual(c2.City, c.City);
-            Assert.AreEqual(c2.State, c.State);
-            Assert.AreEqual(c2.ZipCode, c.ZipCode);
+            Product p2 = new Product("3");
+            Assert.AreEqual(p2.ProductID, p.ProductID);
+            Assert.AreEqual(p2.ProductCode,p.ProductCode);
+            Assert.AreEqual(p2.Description, p.Description);
+            Assert.AreEqual(p2.UnitPrice, p.UnitPrice);
+            Assert.AreEqual(p2.OnHandQuantity, p.OnHandQuantity);
         }
 
         [Test]
         public void TestDelete()
         {
-            Customer c = new Customer("4");
-            c.Delete();
-            c.Save();
-            Assert.Throws<Exception>(() => new Customer("4"));
+            Product p = new Product("4");
+            p.Delete();
+            p.Save();
+            Assert.Throws<Exception>(() => new Product("4"));
         }
 
         [Test]
         public void TestGetList()
         {
-            Customer c = new Customer();
-            List<Customer> customers = (List<Customer>)c.GetList();
-            Assert.AreEqual(696, customers.Count);
-            Assert.AreEqual(1, customers[0].CustomerID);
-            Assert.AreEqual("Molunguri, A", customers[0].Name);
-            Assert.AreEqual("1108 Johanna Bay Drive", customers[0].Address);
-            Assert.AreEqual("Birmingham", customers[0].City);
-            Assert.AreEqual("AL", customers[0].State);
-            Assert.AreEqual("35216-6909", customers[0].ZipCode);
+            Product p = new Product();
+            List<Product> products = (List<Product>)p.GetList();
+            Assert.AreEqual(16, products.Count);
+            Assert.AreEqual(1, products[0].ProductID);
+            Assert.AreEqual("A4CS", products[0].ProductCode);
+            Assert.AreEqual("Murach's ASP.NET 4 Web Programming with C# 2010", products[0].Description);
+            Assert.AreEqual(56.5m, products[0].UnitPrice);
+            Assert.AreEqual(4637, products[0].OnHandQuantity);
         }
 
         [Test]
         public void TestNoRequiredPropertiesNotSet()
         {
             // not in Data Store - abbreviation and name must be provided
-            Customer c = new Customer();
-            Assert.Throws<Exception>(() => c.Save());
+            Product p = new Product();
+            Assert.Throws<Exception>(() => p.Save());
         }
 
         [Test]
         public void TestSomeRequiredPropertiesNotSet()
         {
             // not in Data Store - abbreviation and name must be provided
-            Customer c = new Customer();
-            Assert.Throws<Exception>(() => c.Save());
-            c.Name = "??";
-            Assert.Throws<Exception>(() => c.Save());
+            Product p = new Product();
+            Assert.Throws<Exception>(() => p.Save());
+            p.ProductCode = "??";
+            Assert.Throws<Exception>(() => p.Save());
         }
 
         [Test]
         public void TestInvalidPropertySet()
         {
-            Customer c = new Customer();
-            Assert.Throws<ArgumentOutOfRangeException>(() => c.State = "CAAAAAAAA");
+            Product p = new Product();
+            Assert.Throws<ArgumentOutOfRangeException>(() => p.ProductCode = "CAAAAAAAAAAAAAAAAAAA");
         }
 
         [Test]
         public void TestConcurrencyIssue()
         {
-            Customer c1 = new Customer("4");
-            Customer c2 = new Customer("4");
+            Product p1 = new Product("4");
+            Product p2 = new Product("4");
 
-            c1.Name = "Updated first";
-            c1.Save();
+            p1.Description = "Updated first";
+            p1.Save();
 
-            c2.Name = "Updated second";
-            Assert.Throws<Exception>(() => c2.Save());
+            p2.Description = "Updated second";
+            Assert.Throws<Exception>(() => p2.Save());
         }
     }
 }

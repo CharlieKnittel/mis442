@@ -14,16 +14,24 @@
     <Position X="7" Y="2.25" Width="1.5" />
     <TypeIdentifier />
   </Class>
+  <Class Name="MMABooksBusiness.Product">
+    <Position X="3" Y="3.25" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="MMABooksTools.BaseBusiness" Collapsed="true">
+    <Position X="3.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
   <Interface Name="MMABooksTools.IBaseProps" Collapsed="true">
     <Position X="9.5" Y="2.25" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="MMABooksTools.IReadDB" Collapsed="true">
-    <Position X="5.5" Y="0.75" Width="1.5" />
+    <Position X="5.5" Y="1" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="MMABooksTools.IWriteDB" Collapsed="true">
-    <Position X="8" Y="0.75" Width="1.5" />
+    <Position X="8" Y="1" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Font Name="Segoe UI" Size="9" />

@@ -30,6 +30,7 @@ namespace MMABooksBusiness
                     }
                     else
                     {
+                        mRules.RuleBroken("CustomerID", true);
                         throw new ArgumentOutOfRangeException("CustomerID must be a positive integer.");
                     }
                 }
@@ -188,7 +189,6 @@ namespace MMABooksBusiness
 
         protected override void SetRequiredRules()
         {
-            mRules.RuleBroken("CustomerID", true);
             mRules.RuleBroken("Name", true);
             mRules.RuleBroken("Address", true);
             mRules.RuleBroken("City", true);
