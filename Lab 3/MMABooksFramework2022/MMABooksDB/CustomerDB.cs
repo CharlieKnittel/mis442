@@ -47,7 +47,7 @@ namespace MMABooksDB
             command.Parameters["zipCode_p"].Value = props.ZipCode;
             //... and more values here
 
-   try
+            try
             {
                 rowsAffected = RunNonQueryProcedure(command);
                 if (rowsAffected == 1)

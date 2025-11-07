@@ -21,8 +21,8 @@ namespace MMABooksDB
 {
     public class ProductDB : DBBase, IReadDB, IWriteDB
     {
-        public CustomerDB() : base() { }
-        public CustomerDB(DBConnection cn) : base(cn) { }
+        public ProductDB() : base() { }
+        public ProductDB(DBConnection cn) : base(cn) { }
 
         public IBaseProps Create(IBaseProps p)
         {
@@ -47,7 +47,7 @@ namespace MMABooksDB
             command.Parameters["zipCode_p"].Value = props.ZipCode;
             //... and more values here
 
-   try
+            try
             {
                 rowsAffected = RunNonQueryProcedure(command);
                 if (rowsAffected == 1)
