@@ -30,6 +30,7 @@ namespace MMABooksBusiness
                     }
                     else
                     {
+                        mRules.RuleBroken("ProductID", true);
                         throw new ArgumentOutOfRangeException("ProductID must be a positive integer.");
                     }
                 }
@@ -99,7 +100,7 @@ namespace MMABooksBusiness
             {
                 if (!(value == ((ProductProps)mProps).UnitPrice))
                 {
-                    if (value > 0)
+                    if (value >= 0)
                     {
                         mRules.RuleBroken("UnitPrice", false);
                         ((ProductProps)mProps).UnitPrice = value;
@@ -126,7 +127,7 @@ namespace MMABooksBusiness
                 if (value != ((ProductProps)mProps).OnHandQuantity)
                 {
                     // Guard against negative or fractional input
-                    if (value > 0 && value % 1 == 0)
+                    if (value == 0 | (value > 0 && value % 1 == 0))
                     {
                         mRules.RuleBroken("OnHandQuantity", false);
                         ((ProductProps)mProps).OnHandQuantity = value;
@@ -162,7 +163,6 @@ namespace MMABooksBusiness
 
         protected override void SetRequiredRules()
         {
-            mRules.RuleBroken("ProductID", true);
             mRules.RuleBroken("ProductCode", true);
             mRules.RuleBroken("Description", true);
             mRules.RuleBroken("UnitPrice", true);
@@ -171,11 +171,11 @@ namespace MMABooksBusiness
 
         protected override void SetUp()
         {
-            mProps = new CustomerProps();
-            mOldProps = new CustomerProps();
+            mProps = new ProductProps();
+            mOldProps = new ProductProps();
 
-            mdbReadable = new CustomerDB();
-            mdbWriteable = new CustomerDB();
+            mdbReadable = new ProductDB();
+            mdbWriteable = new ProductDB();
         }
 
         #region constructors
