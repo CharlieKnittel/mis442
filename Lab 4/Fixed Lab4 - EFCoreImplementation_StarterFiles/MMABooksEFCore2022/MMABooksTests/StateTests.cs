@@ -16,14 +16,14 @@ namespace MMABooksTests
         MMABooksContext dbContext;
         State? s;
         List<State>? states;
-
+        
         [SetUp]
         public void Setup()
         {
             dbContext = new MMABooksContext();
             dbContext.Database.ExecuteSqlRaw("call usp_testingResetData()");
         }
-
+        
         [Test]
         public void GetAllTest()
         {
