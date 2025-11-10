@@ -1,0 +1,15 @@
+The only way to generate classes from a database using EFCore is by using a command line tool called Scaffold-DbContext. 
+Which we can access in VS. We will want to install the dotnet-ef command line tool is what will install the entity 
+framework globally on your machine. We will do this by entering the following command after the PM> prompt
+
+<Copy Paste this code below to insall the command line tool>
+
+dotnet tool install --global dotnet-ef
+
+
+ON A WINDOWS MACHINE - Run Scaffold-DbContext by entering the following command.  
+
+<Copy Paste this code. In command line. You need to make sure that the spaces and how it is written is exact)
+
+Scaffold-DbContext "server=127.0.0.1;uid=root;pwd=PutYourPasswordHere;database=MMABooks" Pomelo.EntityFrameworkCore.MySql -OutputDir Models -context MMABooksContext -project MMABooksEFClasses -startupproject MMABooksEFClasses -force
+
