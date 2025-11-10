@@ -18,6 +18,11 @@ namespace MMABooksEFClasses.Models
         public decimal Shipping { get; set; }
         public decimal InvoiceTotal { get; set; }
 
+        public override string ToString()
+        {
+            return InvoiceId + ": " + CustomerId + " - " + InvoiceDate + ", " + ProductTotal + " Item Total + " + SalesTax + " Sales Tax + " + Shipping + " Shipping = " + InvoiceTotal + " Total";
+        }
+
         public virtual Customer Customer { get; set; } = null!;
         public virtual ICollection<Invoicelineitem> Invoicelineitems { get; set; }
     }

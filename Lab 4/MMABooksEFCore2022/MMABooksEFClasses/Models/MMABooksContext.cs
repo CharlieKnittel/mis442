@@ -24,10 +24,11 @@ namespace MMABooksEFClasses.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            string connectionString = ConfigDB.GetMySqlConnectionString();
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("server=127.0.0.1;uid=root;pwd=MIS4422025!;database=MMABooks", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.43-mysql"));
+                var serverVersion = new MySqlServerVersion(new Version(8, 0));
+                optionsBuilder.UseMySql(connectionString, serverVersion);
             }
         }
 
@@ -40,7 +41,7 @@ namespace MMABooksEFClasses.Models
             {
                 entity.ToTable("customers");
 
-                entity.HasIndex(e => e.State, "FK_Customers_States");
+                entity.HasIndex(e => e.StateCode, "FK_Customers_States");
 
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
@@ -50,7 +51,7 @@ namespace MMABooksEFClasses.Models
 
                 entity.Property(e => e.Name).HasMaxLength(100);
 
-                entity.Property(e => e.State)
+                entity.Property(e => e.StateCode)
                     .HasMaxLength(2)
                     .IsFixedLength();
 
@@ -58,9 +59,9 @@ namespace MMABooksEFClasses.Models
                     .HasMaxLength(15)
                     .IsFixedLength();
 
-                entity.HasOne(d => d.StateNavigation)
+                entity.HasOne(d => d.State)
                     .WithMany(p => p.Customers)
-                    .HasForeignKey(d => d.State)
+                    .HasForeignKey(d => d.StateCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Customers_States");
             });
@@ -116,7 +117,7 @@ namespace MMABooksEFClasses.Models
                     .HasForeignKey(d => d.InvoiceId)
                     .HasConstraintName("FK_InvoiceLineItems_Invoices");
 
-                entity.HasOne(d => d.ProductCodeNavigation)
+                entity.HasOne(d => d.Product)
                     .WithMany(p => p.Invoicelineitems)
                     .HasForeignKey(d => d.ProductCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)

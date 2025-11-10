@@ -14,10 +14,15 @@ namespace MMABooksEFClasses.Models
         public string Name { get; set; } = null!;
         public string Address { get; set; } = null!;
         public string City { get; set; } = null!;
-        public string State { get; set; } = null!;
+        public string StateCode { get; set; } = null!;
         public string ZipCode { get; set; } = null!;
 
-        public virtual State StateNavigation { get; set; } = null!;
+        public override string ToString()
+        {
+            return CustomerId + ", " + Name + ", " + Address + ", " + City + ", " + State + " " + ZipCode;
+        }
+
+        public virtual State State { get; set; } = null!;
         public virtual ICollection<Invoice> Invoices { get; set; }
     }
 }

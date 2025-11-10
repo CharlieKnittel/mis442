@@ -15,6 +15,11 @@ namespace MMABooksEFClasses.Models
         public decimal UnitPrice { get; set; }
         public int OnHandQuantity { get; set; }
 
+        public override string ToString()
+        {
+            return ProductCode + ", " + Description + ", " + UnitPrice + " per unit , " + OnHandQuantity + "on hand";
+        }
+
         public virtual ICollection<Invoicelineitem> Invoicelineitems { get; set; }
     }
 }
