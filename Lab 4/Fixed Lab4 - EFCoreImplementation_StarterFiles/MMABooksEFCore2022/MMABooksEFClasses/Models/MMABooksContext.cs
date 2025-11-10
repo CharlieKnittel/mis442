@@ -59,7 +59,7 @@ namespace MMABooksEFClasses.Models
                     .HasMaxLength(15)
                     .IsFixedLength();
 
-                entity.HasOne(d => d.StateNavigation)
+                entity.HasOne(d => d.State)
                     .WithMany(p => p.Customers)
                     .HasForeignKey(d => d.State)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -117,7 +117,7 @@ namespace MMABooksEFClasses.Models
                     .HasForeignKey(d => d.InvoiceId)
                     .HasConstraintName("FK_InvoiceLineItems_Invoices");
 
-                entity.HasOne(d => d.ProductCodeNavigation)
+                entity.HasOne(d => d.Product)
                     .WithMany(p => p.Invoicelineitems)
                     .HasForeignKey(d => d.ProductCode)
                     .OnDelete(DeleteBehavior.ClientSetNull)
