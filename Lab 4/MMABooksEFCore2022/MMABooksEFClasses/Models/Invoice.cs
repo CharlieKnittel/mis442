@@ -20,7 +20,8 @@ namespace MMABooksEFClasses.Models
 
         public override string ToString()
         {
-            return InvoiceId + ": " + CustomerId + " - " + InvoiceDate + ", " + ProductTotal + " Item Total + " + SalesTax + " Sales Tax + " + Shipping + " Shipping = " + InvoiceTotal + " Total";
+            return InvoiceId + ": " + CustomerId + " - " + InvoiceDate + ", " + ProductTotal.ToString("c") + " Item Total + " + 
+                SalesTax.ToString("c") + " Sales Tax + " + Shipping.ToString("c") + " Shipping = " + InvoiceTotal.ToString("c") + " Total";
         }
 
         public virtual Customer Customer { get; set; } = null!;
