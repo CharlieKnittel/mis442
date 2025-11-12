@@ -44,12 +44,21 @@ namespace MMABooksTests
         public void GetUsingWhere()
         {
             // get a list of all of the customers who live in OR
+            customers = dbContext.Customers.Where(c => c.StateCode == "OR").OrderBy(c => c.CustomerId).ToList();
+            Assert.AreEqual(5, customers.Count);
+            Assert.AreEqual("Swenson, Vi", customers[0].Name);
+            PrintAll(customers);
         }
 
         [Test]
         public void GetWithInvoicesTest()
         {
-           // get the customer whose id is 20 and all of the invoices for that customer
+            // get the customer whose id is 20 and all of the invoices for that customer
+            c = dbContext.Customers.Include("Invoices").Where(c => c.CustomerId == 20).SingleOrDefault();
+            Assert.IsNotNull(c);
+            Assert.AreEqual("Chamberland, Sarah", c.Name);
+            Assert.AreEqual(3, c.Invoices.Count);
+            Console.WriteLine(c);
         }
 
         [Test]
