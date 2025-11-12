@@ -15,6 +15,11 @@ namespace MMABooksEFClasses.MarisModels
         public decimal UnitPrice { get; set; }
         public int OnHandQuantity { get; set; }
 
+        public override string ToString()
+        {
+            return ProductCode + ", " + Description + ", " + UnitPrice.ToString("c") + " per unit, " + OnHandQuantity + " on hand";
+        }
+
         public virtual ICollection<Invoicelineitems> Invoicelineitems { get; set; }
     }
 }

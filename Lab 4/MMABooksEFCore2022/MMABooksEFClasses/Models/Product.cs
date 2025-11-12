@@ -17,7 +17,7 @@ namespace MMABooksEFClasses.Models
 
         public override string ToString()
         {
-            return ProductCode + ", " + Description + ", " + UnitPrice + " per unit , " + OnHandQuantity + "on hand";
+            return ProductCode + ", " + Description + ", " + UnitPrice.ToString("c") + " per unit , " + OnHandQuantity + "on hand";
         }
 
         public virtual ICollection<Invoicelineitem> Invoicelineitems { get; set; }

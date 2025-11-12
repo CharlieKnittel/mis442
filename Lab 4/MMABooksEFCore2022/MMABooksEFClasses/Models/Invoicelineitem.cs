@@ -13,7 +13,7 @@ namespace MMABooksEFClasses.Models
 
         public override string ToString()
         {
-            return InvoiceId + ": " + ProductCode + ", " + UnitPrice + " * " + Quantity + " units = " + ItemTotal;
+            return InvoiceId + ": " + ProductCode + ", " + UnitPrice.ToString("c") + " * " + Quantity + " units = " + ItemTotal.ToString("c");
         }
 
         public virtual Invoice Invoice { get; set; } = null!;
