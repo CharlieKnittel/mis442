@@ -73,13 +73,22 @@ namespace MMABooksTests
         [Test]
         public void CreateTest()
         {
-
+            s = new State();
+            s.StateCode = "WE";
+            s.StateName = "Weezer";
+            dbContext.States.Add(s);
+            dbContext.SaveChanges();
+            Assert.IsNotNull(dbContext.States.Find("WE"));
         }
 
         [Test]
         public void UpdateTest()
         {
-
+            s = dbContext.States.Find("MI");
+            s.StateName = "Michigan";
+            dbContext.States.Update(s);
+            dbContext.SaveChanges();
+            Assert.AreEqual("Michigan", dbContext.States.Find("MI").StateName);
         }
 
         public void PrintAll(List<State> states)
