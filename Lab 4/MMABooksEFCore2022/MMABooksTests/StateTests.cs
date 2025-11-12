@@ -21,7 +21,7 @@ namespace MMABooksTests
         public void Setup()
         {
             dbContext = new MMABooksContext();
-            dbContext.Database.ExecuteSqlRaw("call usp_testingResetData()");
+            dbContext.Database.ExecuteSqlRaw("call usp_testingResetStateData()");
         }
 
         [Test]
