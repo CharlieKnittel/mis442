@@ -90,13 +90,25 @@ namespace MMABooksTests
         [Test]
         public void CreateTest()
         {
-
+            c = new Customer();
+            c.Name = "Doe, John";
+            c.Address = "123 Main St";
+            c.City = "Anytown";
+            c.StateCode = "AK";
+            c.ZipCode = "12345";
+            dbContext.Customers.Add(c);
+            dbContext.SaveChanges();
+            Assert.IsNotNull(dbContext.Customers.Find(c.CustomerId));
         }
 
         [Test]
         public void UpdateTest()
         {
-
+            c = dbContext.Customers.Find(4);
+            c.Name = "Smythe, Ahmad";
+            dbContext.Customers.Update(c);
+            dbContext.SaveChanges();
+            Assert.AreEqual("Smythe, Ahmad", dbContext.Customers.Find(4).Name);
         }
 
         public void PrintAll(List<Customer> customers)
