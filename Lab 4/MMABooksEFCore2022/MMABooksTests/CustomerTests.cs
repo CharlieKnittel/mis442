@@ -1,17 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using MMABooksEFClasses.MarisModels;
+//Removed MMABooksEFClasses.Models because references to Customer were ambiguous and StateTests used MarisModels
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
-
-using NUnit.Framework;
-using MMABooksEFClasses.MarisModels;
-using Microsoft.EntityFrameworkCore;
 
 namespace MMABooksTests
 {
     [TestFixture]
     public class CustomerTests
     {
-        /*
         MMABooksContext dbContext;
         Customer? c;
         List<Customer>? customers;
@@ -26,11 +25,19 @@ namespace MMABooksTests
         [Test]
         public void GetAllTest()
         {
+            customers = dbContext.Customers.OrderBy(c => c.CustomerId).ToList();
+            Assert.AreEqual(696, customers.Count);
+            Assert.AreEqual("Molunguri, A", customers[0].Name);
+            PrintAll(customers);
         }
 
         [Test]
         public void GetByPrimaryKeyTest()
         {
+            c = dbContext.Customers.Find(2);
+            Assert.IsNotNull(c);
+            Assert.AreEqual("Muhinyi, Mauda", c.Name);
+            Console.WriteLine(c);
         }
 
         [Test]
@@ -87,6 +94,5 @@ namespace MMABooksTests
                 Console.WriteLine(c);
             }
         }
-        */
     }
 }

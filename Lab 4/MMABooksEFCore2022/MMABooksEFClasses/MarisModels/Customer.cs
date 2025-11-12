@@ -19,8 +19,9 @@ namespace MMABooksEFClasses.MarisModels
 
         public override string ToString()
         {
-            return CustomerId + ", " + Name + ", " + Address + ", " + City + ", " + State + ", " + ZipCode;
+            return CustomerId + ", " + Name + ", " + Address + ", " + City + ", " + StateCode + ", " + ZipCode;
         }
+        //Changed this method to reference StateCode instead of State
 
         public virtual State State { get; set; }
         public virtual ICollection<Invoices> Invoices { get; set; }
