@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using MMABooksEFClasses.MarisModels;
+using MMABooksEFClasses.Models;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,8 +11,8 @@ namespace MMABooksTests
     public class ProductTests
     {
         MMABooksContext dbContext;
-        Products? p;
-        List<Products>? products;
+        Product? p;
+        List<Product>? products;
 
         [SetUp]
         public void Setup()
@@ -75,7 +75,7 @@ namespace MMABooksTests
         [Test]
         public void CreateTest()
         {
-            p = new Products();
+            p = new Product();
             p.ProductCode = "TTBG";
             p.Description = "Coding Print Tote Bag";
             p.UnitPrice = 15.00m;
@@ -95,9 +95,9 @@ namespace MMABooksTests
             Assert.AreEqual("Murach's ADO.NET 4 with VB 2020", dbContext.Products.Find("ADV4").Description);
         }
 
-        public void PrintAll(List<Products> products)
+        public void PrintAll(List<Product> products)
         {
-            foreach (Products p in products)
+            foreach (Product p in products)
             {
                 Console.WriteLine(p);
             }

@@ -19,7 +19,7 @@ namespace MMABooksEFClasses.Models
 
         public override string ToString()
         {
-            return CustomerId + ", " + Name + ", " + Address + ", " + City + ", " + State + " " + ZipCode;
+            return CustomerId + ", " + Name + ", " + Address + ", " + City + ", " + StateCode + " " + ZipCode;
         }
 
         public virtual State State { get; set; } = null!;
