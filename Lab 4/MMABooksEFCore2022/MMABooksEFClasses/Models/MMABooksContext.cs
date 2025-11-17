@@ -51,7 +51,7 @@ namespace MMABooksEFClasses.Models
 
                 entity.Property(e => e.Name).HasMaxLength(100);
 
-                entity.Property(e => e.StateCode)
+                entity.Property(e => e.StateCode).HasColumnName("State")
                     .HasMaxLength(2)
                     .IsFixedLength();
 

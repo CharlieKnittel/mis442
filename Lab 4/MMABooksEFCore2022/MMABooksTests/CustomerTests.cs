@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using MMABooksEFClasses.MarisModels;
-//Removed MMABooksEFClasses.Models because references to Customer were ambiguous and StateTests used MarisModels
+using MMABooksEFClasses.Models;
+//Removed MMABooksEFClasses.Models because references to Customer were ambiguous
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
