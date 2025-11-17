@@ -27,7 +27,7 @@ namespace MMABooksRestAPI.Controllers
             return await _context.States.ToListAsync();
         }
 
-        // GET: api/States/5
+        // GET: api/States/OR
         [HttpGet("{id}")]
         public async Task<ActionResult<State>> GetState(string id)
         {
