@@ -27,7 +27,7 @@ namespace MMABooksRestAPI.Controllers
             return await _context.States.ToListAsync();
         }
 
-        // GET: api/States/OR
+        // GET: api/States/!!
         [HttpGet("{id}")]
         public async Task<ActionResult<State>> GetState(string id)
         {
@@ -41,7 +41,7 @@ namespace MMABooksRestAPI.Controllers
             return state;
         }
 
-        // PUT: api/States/5
+        // PUT: api/States/OR
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutState(string id, State state)
