@@ -22,7 +22,7 @@ namespace MMABooksEFClasses.Models
             return CustomerId + ", " + Name + ", " + Address + ", " + City + ", " + StateCode + " " + ZipCode;
         }
 
-        public virtual State State { get; set; } = null!;
+        public virtual State? State { get; set; } // making this property nullable to fix the REST API
         public virtual ICollection<Invoice> Invoices { get; set; }
     }
 }
