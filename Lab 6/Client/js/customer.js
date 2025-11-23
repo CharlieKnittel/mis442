@@ -72,7 +72,7 @@ class CustomerPage {
       }
     })
     .catch(error => {
-      alert('There was a problem getting customer info!'); 
+      alert('There was a problem getting state info!'); //changed this to clarify origin of issue with onFindCustomer
     });
   }
 
@@ -123,18 +123,21 @@ class CustomerPage {
     event.preventDefault();
     if (this.state.customerId != "") {
       fetch(`${this.url}/${this.state.customerId}`, {method: 'DELETE'})
-      .then(response => response.json())
-      .then(data => { 
-        // returns the record that we deleted so the ids should be the same 
-        if (this.state.customerId == data.customerId)
-        {
-          this.state.customerId = "";
-          this.state.customer = null;
-          this.$customerId.value = "";
-          this.clearCustomerFields();
-          this.enableButtons("pageLoad");
-          alert("Customer was deleted.")
-        }
+          .then(response => {
+              if (response.status === 204) {
+                this.state.customerId = "";
+                this.state.customer = null;
+                this.$customerId.value = "";
+                this.clearCustomerFields();
+                this.enableButtons("pageLoad");
+                alert("Customer was deleted.")
+              }
+              else if (response.status === 404) {
+                  alert("That customer does not exist in our database.");
+              }
+                  // The previous code was trying to parse a no content response, which failed every time.
+                // It still deleted the customer, but also returned an error message.
+              // This will check the status code instead.
         else{
           alert('There was a problem deleting customer info!'); 
         }
