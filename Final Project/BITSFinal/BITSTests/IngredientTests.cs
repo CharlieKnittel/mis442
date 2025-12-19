@@ -59,6 +59,64 @@ namespace BITSTests
             Console.WriteLine(i);
         }
 
+        [Test]
+        public void GetWithJoinTest()
+        {
+            // get a list of objects that include the customer id, name, statecode and statename
+            var ingredients = dbContext.Ingredients.Join(
+               dbContext.IngredientTypes,
+               i => i.IngredientTypeId,
+               t => t.IngredientTypeId,
+               (i, t) => new { i.IngredientId, i.Name, i.Version, IngredientTypeName = t.Name }).OrderBy(t => t.Name).ToList();
+            Assert.AreEqual(1149, ingredients.Count);
+            // I wouldn't normally print here but this lets you see what each object looks like
+            foreach (var i in ingredients)
+            {
+                Console.WriteLine(i);
+            }
+        }
+
+        /* Ingredients are not deleted in this use case, and testing such a function would require rewriting the DB config to complete a delete cascade, so I might work on
+         * this later if I have time.
+         
+         If implemented, it would look like
+        [Test]
+        public void DeleteTest()
+        {
+            i = dbContext.Ingredients.Find(3);
+            dbContext.Ingredients.Remove(i);
+            dbContext.SaveChanges();
+            Assert.IsNull(dbContext.Ingredients.Find(3));
+        }
+
+         */
+
+        [Test]
+        public void CreateTest()
+        {
+            i = new Ingredient();
+            i.Name = "Test Ingredient";
+            i.Version = 1;
+            i.IngredientTypeId = 1;
+            i.UnitCost = 1.02m;
+            i.ReorderPoint = 0.5;
+            i.OnHandQuantity = 3;
+            i.UnitTypeId = 2;
+            dbContext.Ingredients.Add(i);
+            dbContext.SaveChanges();
+            Assert.IsNotNull(dbContext.Ingredients.Find(i.IngredientId));
+        }
+
+        [Test]
+        public void UpdateTest()
+        {
+            i = dbContext.Ingredients.Find(4);
+            i.Name = "Chocolate Sauce";
+            dbContext.Ingredients.Update(i);
+            dbContext.SaveChanges();
+            Assert.AreEqual("Chocolate Sauce", dbContext.Ingredients.Find(4).Name);
+        }
+
         public void PrintAll(List<Ingredient> ingredients)
         {
             foreach (Ingredient i in ingredients)
