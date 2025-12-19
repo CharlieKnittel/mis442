@@ -23,9 +23,11 @@ class DetailsPage {
         this.$ingredientVersion = document.querySelector('#version');
         this.$ingredientTypeId = document.querySelector('#ingredientTypeId');
         this.$ingredientOnHandQuantity = document.querySelector('#onHandQuantity');
-        this.$ingredientUnitTypeId = document.querySelector('#unitTypeId');
+        this.$ingredientUnitType = document.querySelector('#unitType');
         this.$ingredientUnitCost = document.querySelector('#unitCost');
         this.$ingredientReorderPoint = document.querySelector('#reorderPoint');
+        this.$ingredientAdjustment = document.querySelector('adjustment');
+        this.$ingredientComment = document.querySelector('comment');
         this.$enterAdjustButton = document.querySelector('#enterAdjustBtn');
         this.$editButton = document.querySelector('#editBtn');
         this.$saveButton = document.querySelector('#saveBtn');

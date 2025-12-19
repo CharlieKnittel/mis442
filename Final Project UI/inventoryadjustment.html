@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory Details Page</title>
+    <title>Inventory Adjustment Page</title>
     <link rel="stylesheet" type="text/css" href="styles/semantic-ui/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="styles/htmlmenu-menu.css">
 </head>
@@ -94,85 +94,53 @@
                 <div class="ui twelve wide column">
                     <div class="ui two column grid" style="padding-top: 124px;">
                         <div class="ui twelve wide column">
-                            <h1 class="ui dividing header">Inventory Details</h1>
+                            <h1 class="ui dividing header">Inventory Adjustment</h1>
                             <h2 class="ui dividing header">Acid Malt</h2>
                         </div>
                         <div class="ui two wide column"></div>
                     </div>
                     <div class="ui two column grid">
                         <div class="ui twelve wide column">
-                            <div class="ui two column grid">
-                                <div class="ui ten wide column">
-                                    <table class="ui compact table">
-                                        <tbody>
-                                            <tr>
-                                                <td><strong>Id:</strong></td>
-                                                <td>1</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Version:</strong></td>
-                                                <td>1</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p><strong>Type:</strong></p>
-                                                    <p>&nbsp;</p>
-                                                </td>
-                                                <td>
-                                                    <p>Fermentable</p>
-                                                    <p>&nbsp;</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Reorder:</strong></td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>On Hand:</strong></td>
-                                                <td>[quantity here]</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Scheduled:</strong></td>
-                                                <td>0</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p><strong>Order:</strong></p>
-                                                    <p>&nbsp;</p>
-                                                </td>
-                                                <td>
-                                                    <p>0</p>
-                                                    <p>&nbsp;</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Units:</strong></td>
-                                                <td>Kilogram</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p><strong>Cost per Unit:</strong></p>
-                                                    <p>&nbsp;</p>
-                                                </td>
-                                                <td>
-                                                    <p>$0.00</p>
-                                                    <p>&nbsp;</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>Supplier:</strong></td>
-                                                <td>&nbsp;</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="ui four wide center aligned column">
-                                    <div class="ui two big vertical buttons">
-                                        <button class="ui big button" href="file:///C:/MIS442/Final Project UI/inventoryadjustment.html" id="enterAdjustBtn">Enter Adjustment</button>
-                                        <button class="ui big button" id="editBtn">Edit</button>
+                            <form class="ui form" id="customerForm">
+                                <div class="ui two column grid">
+                                    <div class="ui twelve wide column">
+                                        <div class="field">
+                                        <label>On Hand:</label>
+                                            <div class="field">
+                                            <input type="text" id="name" placeholder="0" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                        <label>Units:</label>
+                                            <div class="field">
+                                                <input type="text" id="unitType" placeholder="Kilograms" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <label>Adjustment:</label>
+                                            <input type="text" id="adjustment">
+                                        </div>
+                                        <div class="field">
+                                            <label>Reason:</label>
+                                            <select class="ui fluid dropdown" id="state">
+                                                <option value=""></option>
+                                                <option value="Waste">Waste</option>
+                                                <option value="Spoilage">Spoilage</option>
+                                                <option value="Breakage">Breakage</option>
+                                                <option value="Inventory Count Correction">Inventory Count Correction</option>
+                                            </select>
+                                        </div>
+                                        <div class="field">
+                                            <label>Comment (optional):</label>
+                                            <input type="text" id="comment">
+                                        </div>
                                     </div>
-                                    <ul></ul>
-                                    <button class="ui big button" id="exitBtn">Exit</button>
+                                    <div class="ui four wide center aligned column">
+                                        <div class="ui vertical large buttons">
+                                            <button class="ui button" id="saveBtn">Save</button>
+                                            <button class="ui button" id="cancelBtn">Cancel</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
