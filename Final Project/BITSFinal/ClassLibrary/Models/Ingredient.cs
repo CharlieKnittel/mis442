@@ -26,7 +26,7 @@ public partial class Ingredient
 
     public override string ToString()
     {
-        return IngredientId + ", " + Name + ", Version: " + Version + ", " + OnHandQuantity + " On Hand, $" + UnitCost + " Per Unit";
+        return IngredientId + ", " + Name + ", Version: " + Version;
     }
 
     public virtual Adjunct? Adjunct { get; set; }
