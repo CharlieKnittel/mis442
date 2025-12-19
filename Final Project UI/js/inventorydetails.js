@@ -21,11 +21,13 @@ class DetailsPage {
         this.$ingredientId = document.querySelector('#customerId');
         this.$ingredientName = document.querySelector('#name');
         this.$ingredientVersion = document.querySelector('#version');
-        this.$ingredientType = document.querySelector('#city');
-        this.$customerState = document.querySelector('#state');
-        this.$customerZipcode = document.querySelector('#zipcode');
+        this.$ingredientTypeId = document.querySelector('#ingredientTypeId');
+        this.$ingredientOnHandQuantity = document.querySelector('#onHandQuantity');
+        this.$ingredientUnitTypeId = document.querySelector('#unitTypeId');
+        this.$ingredientUnitCost = document.querySelector('#unitCost');
+        this.$ingredientReorderPoint = document.querySelector('#reorderPoint');
         this.$enterAdjustButton = document.querySelector('#enterAdjustBtn');
-        this.$editButton = document.querySelector('#nothingherefornow');
+        this.$editButton = document.querySelector('#editBtn');
         this.$saveButton = document.querySelector('#saveBtn');
         this.$cancelButton = document.querySelector('#exitBtn');
 
