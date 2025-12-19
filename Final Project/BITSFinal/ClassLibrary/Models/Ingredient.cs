@@ -39,11 +39,11 @@ public partial class Ingredient
 
     public virtual ICollection<IngredientInventorySubtraction> IngredientInventorySubtractions { get; set; } = new List<IngredientInventorySubtraction>();
 
-    public virtual IngredientType IngredientType { get; set; } = null!;
+    public virtual IngredientType? IngredientType { get; set; } = null; // Made nullable to fix REST API 
 
     public virtual ICollection<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
 
-    public virtual UnitType UnitType { get; set; } = null!;
+    public virtual UnitType? UnitType { get; set; } = null; // Made nullable to fix REST API
 
     public virtual Yeast? Yeast { get; set; }
 
