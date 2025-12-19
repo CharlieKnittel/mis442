@@ -2,7 +2,7 @@ using BITSEFClasses.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add CORS policy - in a production app lock this down!
+// Add CORS policy - In a production app, lock this down!
 builder.Services.AddCors(options => {
     options.AddDefaultPolicy(
         builder => {builder.AllowAnyOrigin()
@@ -30,7 +30,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// In a production app, you would want to tern this back on!
+// app.UseHttpsRedirection();
+
+// Enables the CORS policy
+app.UseCors();
 
 app.UseAuthorization();
 
