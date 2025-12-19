@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 
 namespace BITSEFClasses.Models;
 
@@ -22,6 +23,11 @@ public partial class Ingredient
     public double ReorderPoint { get; set; }
 
     public string? Notes { get; set; }
+
+    public override string ToString()
+    {
+        return IngredientId + ", " + Name + ", Version: " + Version + ", " + OnHandQuantity + " On Hand, $" + UnitCost + " Per Unit";
+    }
 
     public virtual Adjunct? Adjunct { get; set; }
 
